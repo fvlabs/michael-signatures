@@ -177,12 +177,16 @@ const variations = [
 ];
 
 /* ---------- page shells ---------- */
+const ASSET_BASE = 'https://kevinfarias.github.io/michael-signatures/michael-variations/';
+const absolutize = (html) => html.replace(/src="assets\//g, `src="${ASSET_BASE}assets/`);
+
 function page(v, sig) {
+  sig = absolutize(sig);
   return `<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><title>Michael Ballard &mdash; aurora signature &mdash; ${v.title}</title>
 <style>body{background:#fff;margin:24px;font-family:Arial,sans-serif}.note{max-width:760px;margin:0 auto 18px;color:#555;font-size:13px;line-height:1.6}.box{max-width:760px;margin:0 auto;border:1px dashed #ccc;padding:22px;border-radius:8px}code{background:#f3f3f3;padding:1px 5px;border-radius:4px}</style></head>
 <body>
-<div class="note"><b>Aurora &mdash; ${v.title} (email-safe).</b> ${v.desc} All animation is baked into the GIFs (flipping portrait, pulsing icons); markup is table-based with real clickable text. For actual email use, point <code>assets/</code> to the public GitHub Pages URL.</div>
+<div class="note"><b>Aurora &mdash; ${v.title} (email-safe).</b> ${v.desc} All animation is baked into the GIFs (flipping portrait, animated icons); markup is table-based with real clickable text and public image URLs &mdash; copy the block below straight into your email client.</div>
 <div class="box">
 
 <!-- ===== SIGNATURE — COPY FROM HERE ===== -->

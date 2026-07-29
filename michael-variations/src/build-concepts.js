@@ -122,16 +122,20 @@ const layoutSet = [
 ];
 
 /* ---------- page shells ---------- */
+/* absolute asset URLs inside signature markup so copied blocks work in email clients */
+const ASSET_BASE = 'https://kevinfarias.github.io/michael-signatures/michael-variations/';
+const absolutize = (html) => html.replace(/src="assets\//g, `src="${ASSET_BASE}assets/`);
+
 function page(v) {
   return `<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><title>Michael Ballard &mdash; ${v.title} signature</title>
 <style>body{background:#fff;margin:24px;font-family:Arial,sans-serif}.note{max-width:760px;margin:0 auto 18px;color:#555;font-size:13px;line-height:1.6}.box{max-width:760px;margin:0 auto;border:1px dashed #ccc;padding:22px;border-radius:8px}code{background:#f3f3f3;padding:1px 5px;border-radius:4px}</style></head>
 <body>
-<div class="note"><b>Aurora concept &mdash; ${v.title} (email-safe).</b> ${v.anim} The animation is baked into a looping GIF; markup is table-based with real clickable text. For email use, point <code>assets/</code> to the public GitHub Pages URL.</div>
+<div class="note"><b>Aurora concept &mdash; ${v.title} (email-safe).</b> ${v.anim} The animation is baked into a looping GIF; markup is table-based with real clickable text and public image URLs &mdash; copy the block below straight into your email client.</div>
 <div class="box">
 
 <!-- ===== SIGNATURE — COPY FROM HERE ===== -->
-${v.body()}
+${absolutize(v.body())}
 <!-- ===== END ===== -->
 
 </div>
@@ -177,7 +181,7 @@ iframe{display:block;width:100%;border:0}
 <div class="head">
   <h1>Michael Ballard &mdash; aurora signature lab</h1>
   <p>Email-safe signatures with animation baked into looping GIFs (email clients can't run CSS animation, but they all play GIFs). Markup is table-based with inline styles and real clickable text. Every card keeps the <code>#070a14</code> background the GIFs were rendered against.</p>
-  <p style="margin-top:8px">To use one in email: open it, copy the block between the <code>SIGNATURE</code> comments, and replace each <code>assets/&hellip;</code> src with the absolute GitHub Pages URL (e.g. <code>https://&lt;user&gt;.github.io/&lt;repo&gt;/michael-variations/assets/avatar-orbit.gif</code>).</p>
+  <p style="margin-top:8px">To use one in email: open it and copy the block between the <code>SIGNATURE</code> comments &mdash; image srcs already point to the public GitHub Pages URLs, so it works as-is in Gmail, Apple Mail, etc.</p>
 </div>
 
 <h2 class="sect">Animation concepts</h2>
