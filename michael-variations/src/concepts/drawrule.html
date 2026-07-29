@@ -1,0 +1,11 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+  html,body{margin:0;padding:0;background:#070a14}
+  body{width:220px;height:14px;overflow:hidden}
+  svg{display:block}
+  path{stroke:#5b8bff;stroke-width:2.5;fill:none;stroke-linecap:round;
+    stroke-dasharray:230;animation:draw 3s ease-in-out infinite}
+  @keyframes draw{0%{stroke-dashoffset:230;opacity:1}45%{stroke-dashoffset:0;opacity:1}80%{stroke-dashoffset:0;opacity:1}95%{stroke-dashoffset:0;opacity:0}100%{stroke-dashoffset:230;opacity:0}}
+</style></head>
+<body data-period="3000" data-w="220" data-h="14">
+  <svg width="220" height="14" viewBox="0 0 220 14"><path d="M3 9 C 40 3, 80 12, 120 7 S 190 4, 217 8"/></svg>
+</body></html>

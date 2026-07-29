@@ -1,0 +1,15 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+  html,body{margin:0;padding:0;background:#070a14}
+  body{width:140px;height:140px;position:relative;overflow:hidden}
+  img{position:absolute;left:50%;top:50%;width:104px;height:104px;margin:-52px 0 0 -52px;border-radius:50%;
+    object-fit:cover;box-sizing:border-box;border:2px solid rgba(91,139,255,.55)}
+  .rip{position:absolute;left:50%;top:50%;width:112px;height:112px;margin:-56px 0 0 -56px;border-radius:50%;
+    box-sizing:border-box;border:2px solid #5b8bff;animation:rip 3s cubic-bezier(.2,.6,.35,1) infinite}
+  .rip.r2{animation-delay:-1s;border-color:#22d3ee}
+  .rip.r3{animation-delay:-2s;border-color:#215ff6}
+  @keyframes rip{0%{transform:scale(.94);opacity:.9}75%,100%{transform:scale(1.22);opacity:0}}
+</style></head>
+<body data-period="3000" data-w="140" data-h="140">
+  <span class="rip"></span><span class="rip r2"></span><span class="rip r3"></span>
+  <img src="michael.png" alt="">
+</body></html>

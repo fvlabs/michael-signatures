@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurora — 3 bold animation variations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --brand:#215ff6; --brand-soft:#5b8bff; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Space Grotesk',sans-serif;background:#0b0d14;color:#e8ecf5;min-height:100vh;padding:56px 24px 96px;
+    background-image:radial-gradient(900px 500px at 12% -8%,rgba(33,95,246,.18),transparent 60%),radial-gradient(800px 600px at 100% 10%,rgba(91,139,255,.10),transparent 55%)}
+  .page-head{max-width:760px;margin:0 auto 48px;text-align:center}
+  .page-head h1{font-weight:700;font-size:28px;letter-spacing:-.02em}
+  .page-head p{color:#8b93a7;margin-top:10px;font-size:15px;line-height:1.6}
+  .lab{max-width:720px;margin:0 auto 56px}
+  .lab-tag{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#8b93a7;font-weight:600;margin-bottom:16px;padding-left:4px}
+  .lab-tag b{color:var(--brand-soft)}
+  .lab-tag .dot{width:7px;height:7px;border-radius:50%;background:var(--brand);box-shadow:0 0 12px var(--brand)}
+  .stage{border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.06);perspective:1400px}
+  .replay{margin-top:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#cfd6e6;font:inherit;font-size:12px;font-weight:600;letter-spacing:.04em;padding:7px 14px;border-radius:999px;cursor:pointer;transition:.2s}
+  .replay:hover{background:var(--brand);border-color:var(--brand);color:#fff}
+
+  /* shared aurora shell */
+  .au{position:relative;background:#070a14;padding:40px 44px;display:flex;gap:34px;align-items:center;overflow:hidden}
+  .au-bg{content:"";position:absolute;inset:-40%;z-index:0;
+    background:radial-gradient(closest-side at 30% 40%,rgba(33,95,246,.55),transparent 70%),radial-gradient(closest-side at 70% 60%,rgba(123,97,255,.40),transparent 70%),radial-gradient(closest-side at 50% 90%,rgba(0,209,255,.30),transparent 70%);
+    filter:blur(38px);animation:mesh 14s ease-in-out infinite}
+  @keyframes mesh{0%,100%{transform:translate(0,0) rotate(0) scale(1)}33%{transform:translate(6%,-5%) rotate(8deg) scale(1.12)}66%{transform:translate(-5%,4%) rotate(-6deg) scale(1.05)}}
+  .au-grain{position:absolute;inset:0;z-index:1;opacity:.06;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .au-in{position:relative;z-index:2;display:flex;gap:34px;align-items:center;width:100%}
+  .photo{width:128px;height:128px;flex:0 0 auto;position:relative;display:grid;place-items:center}
+  .photo .ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,var(--brand),#7b61ff,#00d1ff,var(--brand));animation:spin 6s linear infinite;box-shadow:0 0 40px rgba(33,95,246,.45)}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .photo img{position:relative;width:114px;height:114px;border-radius:50%;object-fit:cover;border:3px solid #070a14}
+  .role{margin-top:6px;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--brand-soft);font-weight:600}
+  .rule{height:1px;width:240px;margin:18px 0;background:linear-gradient(90deg,var(--brand),transparent)}
+  .row{display:flex;align-items:center;gap:11px;font-size:14px;color:#c3cbdc;margin:9px 0}
+  .row a{color:inherit;text-decoration:none}.row a:hover{color:#fff}
+  .ic{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:rgba(33,95,246,.14);border:1px solid rgba(91,139,255,.25);flex:0 0 auto}
+  .ic svg{width:15px;height:15px;stroke:var(--brand-soft);fill:none}
+  .brand{margin-top:18px;display:flex;align-items:center;gap:8px}
+  .brand img{height:30px}.brand .bd{width:4px;height:4px;border-radius:50%;background:#3a4255}
+  .brand span{font-family:'JetBrains Mono',monospace;font-size:13px;color:#727b91}
+  .name{font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1.05;color:#fff}
+
+  /* ---------- A: DECODE / SCRAMBLE ---------- */
+  .vA .name{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:27px}
+  .vA .name .ch{color:#fff}
+  .vA .name .scrambling{color:var(--brand-soft)}
+  .vA .role,.vA .rule,.vA .row,.vA .brand{opacity:0;transform:translateY(8px);animation:rise .55s ease forwards}
+  .vA .role{animation-delay:1.0s}.vA .rule{animation-delay:1.1s;transform:none}
+  .vA .row:nth-of-type(1){animation-delay:1.2s}.vA .row:nth-of-type(2){animation-delay:1.32s}.vA .row:nth-of-type(3){animation-delay:1.44s}.vA .row:nth-of-type(4){animation-delay:1.56s}
+  .vA .brand{animation-delay:1.7s}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  /* ---------- B: FOCUS PULL + LIGHT SWEEP ---------- */
+  .vB .au-in{animation:focuspull 1s cubic-bezier(.2,.8,.2,1) forwards;filter:blur(16px);opacity:0;transform:scale(1.04)}
+  @keyframes focuspull{to{filter:blur(0);opacity:1;transform:none}}
+  .vB .beam{position:absolute;top:-40%;left:-30%;width:40%;height:180%;z-index:3;pointer-events:none;
+    background:linear-gradient(105deg,transparent,rgba(255,255,255,.16),rgba(91,139,255,.28),transparent);
+    transform:skewX(-18deg) translateX(-60px);filter:blur(6px);animation:sweep 1.6s .35s ease-in-out forwards;opacity:0}
+  @keyframes sweep{0%{opacity:0;left:-30%}20%{opacity:1}80%{opacity:1}100%{left:130%;opacity:0}}
+  .vB .name .ch{display:inline-block;filter:blur(10px);opacity:0;transform:translateY(4px) scale(1.3);animation:lfocus .5s ease forwards}
+  @keyframes lfocus{to{filter:blur(0);opacity:1;transform:none}}
+  .vB .role,.vB .rule,.vB .row,.vB .brand{opacity:0;animation:clipin .7s ease forwards;clip-path:inset(0 100% 0 0)}
+  .vB .role{animation-delay:.7s}.vB .rule{animation-delay:.8s}
+  .vB .row:nth-of-type(1){animation-delay:.9s}.vB .row:nth-of-type(2){animation-delay:1.0s}.vB .row:nth-of-type(3){animation-delay:1.1s}.vB .row:nth-of-type(4){animation-delay:1.2s}
+  .vB .brand{animation-delay:1.35s}
+  @keyframes clipin{to{opacity:1;clip-path:inset(0 0 0 0)}}
+  /* shared 3D photo flip — used by all three takes */
+  .au .photo{opacity:0;animation:photoflip .9s .3s cubic-bezier(.2,.8,.2,1) forwards}
+  @keyframes photoflip{from{opacity:0;transform:perspective(800px) rotateY(90deg)}to{opacity:1;transform:perspective(800px) rotateY(0)}}
+
+  /* ---------- C: 3D FLIP + PARALLAX ---------- */
+  .vC .au{transform-style:preserve-3d;animation:cardin 1s cubic-bezier(.2,.8,.2,1) forwards;transform:rotateX(-22deg) translateY(30px);opacity:0;transition:transform .25s ease-out}
+  @keyframes cardin{to{transform:rotateX(0) translateY(0);opacity:1}}
+  .vC .name .ch{display:inline-block;transform-origin:50% 100%;transform:rotateX(-90deg);opacity:0;animation:flip .6s cubic-bezier(.2,.8,.2,1) forwards}
+  @keyframes flip{to{transform:none;opacity:1}}
+  .vC .role,.vC .rule,.vC .row,.vC .brand{opacity:0;transform:translateZ(-40px);animation:zin .6s ease forwards}
+  .vC .role{animation-delay:.9s}.vC .rule{animation-delay:1.0s}
+  .vC .row:nth-of-type(1){animation-delay:1.1s}.vC .row:nth-of-type(2){animation-delay:1.2s}.vC .row:nth-of-type(3){animation-delay:1.3s}.vC .row:nth-of-type(4){animation-delay:1.4s}
+  .vC .brand{animation-delay:1.55s}
+  @keyframes zin{to{opacity:1;transform:none}}
+
+  @media(max-width:560px){.au-in{flex-direction:column;text-align:center}.rule{margin-inline:auto}.row{justify-content:center}.brand{justify-content:center}}
+</style>
+</head>
+<body>
+  <div class="page-head">
+    <h1>Aurora — 3 bolder animation takes</h1>
+    <p>Same look, three entrance personalities. Hit “replay” to watch each one build again.</p>
+  </div>
+
+  <!-- A -->
+  <div class="lab">
+    <div class="lab-tag"><span class="dot"></span> Take <b>A</b> — decode / scramble</div>
+    <div class="stage" id="stageA">
+      <div class="au vA">
+        <div class="au-bg"></div><div class="au-grain"></div>
+        <div class="au-in">
+          <div class="photo"><span class="ring"></span><img src="michael.png" alt="Michael Ballard"></div>
+          <div>
+            <div class="name" data-text="Michael Ballard"></div>
+            <div class="role">Founder &amp; CEO</div>
+            <div class="rule"></div>
+            <div class="row"><span class="ic"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><a href="tel:+19292779018">+1 929 277 9018</a> <span style="color:#5d6680;font-size:12px">· US</span></div>
+            <div class="row"><span class="ic"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><a href="tel:+46703688988">+46 70 368 8988</a> <span style="color:#5d6680;font-size:12px">· SE</span></div>
+            <div class="row"><span class="ic"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg></span><a href="mailto:michael@slashdev.io">michael@slashdev.io</a></div>
+            <div class="row"><span class="ic"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>Seattle, WA · Stockholm, SE</div>
+            <div class="brand"><img src="slashdev-white.svg" alt="slashdev"><span class="bd"></span><span>slashdev.io</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="replay" data-target="stageA">↻ replay</button>
+  </div>
+
+  <!-- B -->
+  <div class="lab">
+    <div class="lab-tag"><span class="dot"></span> Take <b>B</b> — focus pull + light sweep</div>
+    <div class="stage" id="stageB">
+      <div class="au vB">
+        <div class="au-bg"></div><div class="au-grain"></div><div class="beam"></div>
+        <div class="au-in">
+          <div class="photo"><span class="ring"></span><img src="michael.png" alt="Michael Ballard"></div>
+          <div>
+            <div class="name" data-text="Michael Ballard"></div>
+            <div class="role">Founder &amp; CEO</div>
+            <div class="rule"></div>
+            <div class="row"><span class="ic"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><a href="tel:+19292779018">+1 929 277 9018</a> <span style="color:#5d6680;font-size:12px">· US</span></div>
+            <div class="row"><span class="ic"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><a href="tel:+46703688988">+46 70 368 8988</a> <span style="color:#5d6680;font-size:12px">· SE</span></div>
+            <div class="row"><span class="ic"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg></span><a href="mailto:michael@slashdev.io">michael@slashdev.io</a></div>
+            <div class="row"><span class="ic"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>Seattle, WA · Stockholm, SE</div>
+            <div class="brand"><img src="slashdev-white.svg" alt="slashdev"><span class="bd"></span><span>slashdev.io</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="replay" data-target="stageB">↻ replay</button>
+  </div>
+
+  <!-- C -->
+  <div class="lab">
+    <div class="lab-tag"><span class="dot"></span> Take <b>C</b> — 3D flip + mouse parallax</div>
+    <div class="stage" id="stageC">
+      <div class="au vC" data-parallax>
+        <div class="au-bg"></div><div class="au-grain"></div>
+        <div class="au-in">
+          <div class="photo"><span class="ring"></span><img src="michael.png" alt="Michael Ballard"></div>
+          <div>
+            <div class="name" data-text="Michael Ballard"></div>
+            <div class="role">Founder &amp; CEO</div>
+            <div class="rule"></div>
+            <div class="row"><span class="ic"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><a href="tel:+19292779018">+1 929 277 9018</a> <span style="color:#5d6680;font-size:12px">· US</span></div>
+            <div class="row"><span class="ic"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><a href="tel:+46703688988">+46 70 368 8988</a> <span style="color:#5d6680;font-size:12px">· SE</span></div>
+            <div class="row"><span class="ic"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg></span><a href="mailto:michael@slashdev.io">michael@slashdev.io</a></div>
+            <div class="row"><span class="ic"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>Seattle, WA · Stockholm, SE</div>
+            <div class="brand"><img src="slashdev-white.svg" alt="slashdev"><span class="bd"></span><span>slashdev.io</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="replay" data-target="stageC">↻ replay</button>
+  </div>
+
+<script>
+  const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/#@$%&*<>";
+
+  // Split a .name into per-letter spans (for B and C letter animations)
+  function splitLetters(el, delayBase, step){
+    const text = el.dataset.text;
+    el.innerHTML = "";
+    [...text].forEach((c,i)=>{
+      const s = document.createElement('span');
+      s.className = 'ch';
+      s.textContent = c === ' ' ? ' ' : c;
+      s.style.animationDelay = (delayBase + i*step) + 's';
+      el.appendChild(s);
+    });
+  }
+
+  // Scramble/decode a .name into its final text (for A)
+  function decode(el){
+    const text = el.dataset.text;
+    el.innerHTML = "";
+    const spans = [...text].map(c=>{
+      const s = document.createElement('span');
+      s.className = 'ch scrambling';
+      s.textContent = c === ' ' ? ' ' : c;
+      el.appendChild(s);
+      return s;
+    });
+    let frame = 0;
+    const settleAt = spans.map((_,i)=> 8 + i*3); // each letter locks progressively
+    const id = setInterval(()=>{
+      frame++;
+      let done = true;
+      spans.forEach((s,i)=>{
+        const target = text[i];
+        if(target === ' '){ s.textContent=' '; s.classList.remove('scrambling'); return; }
+        if(frame >= settleAt[i]){ s.textContent = target; s.classList.remove('scrambling'); }
+        else { s.textContent = GLYPHS[(Math.floor((frame*7+i*13))%GLYPHS.length)]; done = false; }
+      });
+      if(done) clearInterval(id);
+    }, 45);
+  }
+
+  function run(stage){
+    stage.querySelectorAll('.vA .name').forEach(decode);
+    stage.querySelectorAll('.vB .name').forEach(el=>splitLetters(el,0.15,0.05));
+    stage.querySelectorAll('.vC .name').forEach(el=>splitLetters(el,0.55,0.045));
+  }
+
+  // Mouse parallax for Take C
+  function bindParallax(stage){
+    const card = stage.querySelector('[data-parallax]');
+    if(!card) return;
+    stage.addEventListener('mousemove', e=>{
+      const r = stage.getBoundingClientRect();
+      const x = (e.clientX - r.left)/r.width - .5;
+      const y = (e.clientY - r.top)/r.height - .5;
+      card.style.transform = `rotateY(${x*10}deg) rotateX(${-y*10}deg)`;
+    });
+    stage.addEventListener('mouseleave', ()=>{ card.style.transform = 'rotateY(0) rotateX(0)'; });
+  }
+
+  ['stageA','stageB','stageC'].forEach(id=>{ const s=document.getElementById(id); run(s); if(id==='stageC') bindParallax(s); });
+
+  document.querySelectorAll('.replay').forEach(b=>b.addEventListener('click',()=>{
+    const old = document.getElementById(b.dataset.target);
+    const fresh = old.cloneNode(true);
+    old.parentNode.replaceChild(fresh, old);
+    run(fresh);
+    if(b.dataset.target==='stageC') bindParallax(fresh);
+  }));
+</script>
+</body>
+</html>

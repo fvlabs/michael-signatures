@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Michael Ballard — Signature Variations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{ --brand:#215ff6; --brand-soft:#5b8bff; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Space Grotesk',sans-serif;background:#0b0d14;color:#e8ecf5;min-height:100vh;
+    padding:56px 24px 96px;
+    background-image:
+      radial-gradient(900px 500px at 12% -8%, rgba(33,95,246,.18), transparent 60%),
+      radial-gradient(800px 600px at 100% 10%, rgba(91,139,255,.10), transparent 55%);
+  }
+  .page-head{max-width:760px;margin:0 auto 48px;text-align:center}
+  .page-head h1{font-weight:700;font-size:30px;letter-spacing:-.02em}
+  .page-head p{color:#8b93a7;margin-top:10px;font-size:15px;line-height:1.6}
+  .lab{max-width:720px;margin:0 auto 56px}
+  .lab-tag{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#8b93a7;font-weight:600;margin-bottom:16px;padding-left:4px}
+  .lab-tag b{color:var(--brand-soft)}
+  .lab-tag .dot{width:7px;height:7px;border-radius:50%;background:var(--brand);box-shadow:0 0 12px var(--brand)}
+  .stage{border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.06)}
+  .replay{margin-top:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#cfd6e6;font:inherit;font-size:12px;font-weight:600;letter-spacing:.04em;padding:7px 14px;border-radius:999px;cursor:pointer;transition:.2s}
+  .replay:hover{background:var(--brand);border-color:var(--brand);color:#fff}
+
+  /* ===== VARIATION 1 — AURORA / GLASS ===== */
+  .v1{position:relative;background:#070a14;padding:40px 44px;display:flex;gap:34px;align-items:center;font-family:'Space Grotesk',sans-serif}
+  .v1::before{content:"";position:absolute;inset:-40%;z-index:0;
+    background:radial-gradient(closest-side at 30% 40%, rgba(33,95,246,.55), transparent 70%),radial-gradient(closest-side at 70% 60%, rgba(123,97,255,.40), transparent 70%),radial-gradient(closest-side at 50% 90%, rgba(0,209,255,.30), transparent 70%);
+    filter:blur(38px);animation:v1mesh 14s ease-in-out infinite}
+  @keyframes v1mesh{0%,100%{transform:translate(0,0) rotate(0) scale(1)}33%{transform:translate(6%,-5%) rotate(8deg) scale(1.12)}66%{transform:translate(-5%,4%) rotate(-6deg) scale(1.05)}}
+  .v1::after{content:"";position:absolute;inset:0;z-index:1;opacity:.06;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .v1 > *{position:relative;z-index:2}
+  .v1-photo{width:128px;height:128px;flex:0 0 auto;position:relative;display:grid;place-items:center}
+  .v1-photo .ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,var(--brand),#7b61ff,#00d1ff,var(--brand));animation:v1spin 6s linear infinite;box-shadow:0 0 40px rgba(33,95,246,.45)}
+  @keyframes v1spin{to{transform:rotate(360deg)}}
+  .v1-photo img{position:relative;width:114px;height:114px;border-radius:50%;object-fit:cover;border:3px solid #070a14}
+  .v1-name{font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1;background:linear-gradient(100deg,#fff 30%,var(--brand-soft) 45%,#fff 60%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:v1shine 4.5s ease-in-out infinite}
+  @keyframes v1shine{0%,100%{background-position:130% 0}50%{background-position:-30% 0}}
+  .v1-role{margin-top:6px;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--brand-soft);font-weight:600}
+  .v1-rule{height:1px;width:0;margin:18px 0;background:linear-gradient(90deg,var(--brand),transparent);animation:v1rule 1s .3s ease forwards}
+  @keyframes v1rule{to{width:240px}}
+  .v1-row{display:flex;align-items:center;gap:11px;font-size:14px;color:#c3cbdc;margin:9px 0;opacity:0;transform:translateY(6px);animation:v1in .6s ease forwards}
+  .v1-row:nth-child(1){animation-delay:.4s}.v1-row:nth-child(2){animation-delay:.5s}.v1-row:nth-child(3){animation-delay:.6s}.v1-row:nth-child(4){animation-delay:.7s}
+  @keyframes v1in{to{opacity:1;transform:none}}
+  .v1-row a{color:inherit;text-decoration:none}.v1-row a:hover{color:#fff}
+  .v1-ic{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:rgba(33,95,246,.14);border:1px solid rgba(91,139,255,.25);flex:0 0 auto}
+  .v1-ic svg{width:15px;height:15px;stroke:var(--brand-soft)}
+  .v1-brand{margin-top:18px;display:flex;align-items:center;gap:8px}
+  .v1-brand img{height:30px;width:auto}
+  .v1-brand .dot{width:4px;height:4px;border-radius:50%;background:#3a4255}
+  .v1-brand span{font-family:'JetBrains Mono',monospace;font-size:13px;color:#727b91;letter-spacing:.02em}
+
+  /* ===== VARIATION 2 — TERMINAL ===== */
+  .v2{background:#0c0f17;font-family:'JetBrains Mono',monospace}
+  .v2-bar{display:flex;align-items:center;gap:8px;padding:13px 16px;background:#161b27;border-bottom:1px solid #232a3a}
+  .v2-bar i{width:12px;height:12px;border-radius:50%;display:inline-block}
+  .v2-bar .r{background:#ff5f57}.v2-bar .y{background:#febc2e}.v2-bar .g{background:#28c840}
+  .v2-bar span{margin-left:10px;color:#5d6680;font-size:12.5px;letter-spacing:.03em}
+  .v2-body{padding:22px 26px 28px;font-size:14.5px;line-height:1.85;min-height:300px;display:flex;gap:24px}
+  .v2-left{flex:1;min-width:0}
+  .v2-right{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:12px;padding-top:4px;opacity:0;animation:v2show .6s 1s forwards}
+  .v2-right img.ph{width:96px;height:96px;border-radius:12px;object-fit:cover;border:1px solid #2a3346}
+  .v2-right img.lg{height:26px;width:auto;opacity:.95}
+  .v2 .line{white-space:pre-wrap;opacity:0;animation:v2show 0s forwards}
+  .v2 .prompt{color:#28c840}.v2 .prompt b{color:#5b8bff;font-weight:400}
+  .v2 .cmd{color:#e8ecf5}.v2 .k{color:#7b61ff}.v2 .v a{color:#5b8bff;text-decoration:none}
+  .v2 .muted{color:#5d6680}.v2 .big{color:#fff;font-weight:700;font-size:20px}
+  .v2 .l1{animation-delay:.2s}.v2 .l2{animation-delay:1.4s}.v2 .l3{animation-delay:1.7s}.v2 .l4{animation-delay:2.0s}.v2 .l5{animation-delay:2.3s}.v2 .l6{animation-delay:2.6s}.v2 .l7{animation-delay:2.9s}.v2 .l8{animation-delay:3.2s}.v2 .l9{animation-delay:3.6s}
+  @keyframes v2show{to{opacity:1}}
+  .v2 .typed{display:inline-block;overflow:hidden;white-space:nowrap;vertical-align:bottom;width:0;animation:v2type 1s steps(28) .25s forwards}
+  @keyframes v2type{to{width:23ch}}
+  .v2 .cursor{display:inline-block;width:9px;height:17px;background:#28c840;vertical-align:-3px;margin-left:3px;animation:v2blink 1s steps(1) infinite}
+  @keyframes v2blink{50%{opacity:0}}
+
+  /* ===== VARIATION 3 — EDITORIAL + LIVE CLOCKS ===== */
+  .v3{background:#f4f1ea;color:#15171c;padding:42px 44px;font-family:'Montserrat',sans-serif;position:relative;overflow:hidden}
+  .v3::before{content:"";position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;border:1px solid rgba(33,95,246,.18);animation:v3float 9s ease-in-out infinite}
+  .v3::after{content:"";position:absolute;top:-30px;right:-30px;width:160px;height:160px;border-radius:50%;border:1px solid rgba(33,95,246,.12);animation:v3float 9s ease-in-out infinite reverse}
+  @keyframes v3float{0%,100%{transform:translateY(0)}50%{transform:translateY(18px)}}
+  .v3-top{display:flex;align-items:center;gap:22px;position:relative;z-index:2}
+  .v3-portrait{width:96px;height:96px;flex:0 0 auto;border-radius:16px;overflow:hidden;position:relative;clip-path:inset(0 0 0 0)}
+  .v3-portrait img{width:100%;height:100%;object-fit:cover;transform:scale(1.15);animation:v3zoom 1.2s cubic-bezier(.2,.8,.2,1) forwards}
+  @keyframes v3zoom{to{transform:scale(1)}}
+  .v3-name{font-size:27px;font-weight:800;letter-spacing:-.02em}
+  .v3-role{font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#7a7f8c;margin-top:5px}
+  .v3-logo{height:22px;margin-top:12px}
+  .v3-draw{height:2px;background:var(--brand);width:0;margin:22px 0 20px;animation:v3draw 1.1s .5s cubic-bezier(.65,0,.35,1) forwards}
+  @keyframes v3draw{to{width:100%}}
+  .v3-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 28px;position:relative;z-index:2}
+  .v3-field{opacity:0;transform:translateY(8px);animation:v3in .6s ease forwards}
+  .v3-field:nth-child(1){animation-delay:.7s}.v3-field:nth-child(2){animation-delay:.8s}.v3-field:nth-child(3){animation-delay:.9s}.v3-field:nth-child(4){animation-delay:1s}
+  @keyframes v3in{to{opacity:1;transform:none}}
+  .v3-field .lbl{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#a4a8b3;font-weight:700;margin-bottom:3px}
+  .v3-field .val{font-size:14.5px;font-weight:600}
+  .v3-field .val a{color:#15171c;text-decoration:none;border-bottom:1px solid transparent;transition:.2s}
+  .v3-field .val a:hover{border-color:var(--brand);color:var(--brand)}
+  .v3-clocks{display:flex;gap:14px;margin-top:24px;position:relative;z-index:2}
+  .v3-clock{flex:1;background:#fff;border:1px solid #e3ded3;border-radius:12px;padding:12px 14px}
+  .v3-clock .city{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#a4a8b3;font-weight:700;display:flex;align-items:center;gap:6px}
+  .v3-clock .city .pin{width:5px;height:5px;border-radius:50%;background:var(--brand)}
+  .v3-clock .time{font-family:'JetBrains Mono',monospace;font-size:21px;font-weight:500;margin-top:5px}
+  .v3-clock .time b{color:var(--brand);font-weight:500}
+  .v3-clock .zone{font-size:11px;color:#a4a8b3;margin-top:1px}
+
+  @media(max-width:560px){.v1{flex-direction:column;text-align:center;align-items:center}.v1-rule{margin-inline:auto}.v1-row{justify-content:center}.v2-body{flex-direction:column-reverse}.v2-right{flex-direction:row}}
+</style>
+</head>
+<body>
+  <div class="page-head">
+    <h1>Michael Ballard — 3 signature concepts</h1>
+    <p>Real photo + the slashdev <b>/dev</b> mark. Hover the links · hit “replay” to re-run the entrance animations.</p>
+  </div>
+
+  <!-- VARIATION 1 -->
+  <div class="lab">
+    <div class="lab-tag"><span class="dot"></span> Concept <b>01</b> — Aurora / glassmorphism</div>
+    <div class="stage" id="stage1">
+      <div class="v1">
+        <div class="v1-photo"><span class="ring"></span><img src="michael.png" alt="Michael Ballard"></div>
+        <div>
+          <div class="v1-name">Michael Ballard</div>
+          <div class="v1-role">Founder &amp; CEO</div>
+          <div class="v1-rule"></div>
+          <div class="v1-row"><span class="v1-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><a href="tel:+19292779018">+1 929 277 9018</a> <span style="color:#5d6680;font-size:12px">· US</span></div>
+          <div class="v1-row"><span class="v1-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><a href="tel:+46703688988">+46 70 368 8988</a> <span style="color:#5d6680;font-size:12px">· SE</span></div>
+          <div class="v1-row"><span class="v1-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg></span><a href="mailto:michael@slashdev.io">michael@slashdev.io</a></div>
+          <div class="v1-row"><span class="v1-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>Seattle, WA · Stockholm, SE</div>
+          <div class="v1-brand"><img src="slashdev-white.svg" alt="slashdev"><span class="dot"></span><span>slashdev.io</span></div>
+        </div>
+      </div>
+    </div>
+    <button class="replay" data-target="stage1">↻ replay</button>
+  </div>
+
+  <!-- VARIATION 2 -->
+  <div class="lab">
+    <div class="lab-tag"><span class="dot"></span> Concept <b>02</b> — Terminal / dev-native</div>
+    <div class="stage" id="stage2">
+      <div class="v2">
+        <div class="v2-bar"><i class="r"></i><i class="y"></i><i class="g"></i><span>michael@slashdev — zsh</span></div>
+        <div class="v2-body">
+          <div class="v2-left">
+            <div class="line l1"><span class="prompt">michael@slashdev <b>~</b> %</span> <span class="cmd"><span class="typed">cat ./signature.txt</span></span></div>
+            <div class="line l2"><span class="big">Michael Ballard</span></div>
+            <div class="line l3"><span class="muted"># Founder &amp; CEO @ slashdev</span></div>
+            <div class="line l4"><span class="k">tel_us </span><span class="muted">=</span> <span class="v"><a href="tel:+19292779018">+1 929 277 9018</a></span></div>
+            <div class="line l5"><span class="k">tel_se </span><span class="muted">=</span> <span class="v"><a href="tel:+46703688988">+46 70 368 8988</a></span></div>
+            <div class="line l6"><span class="k">email&nbsp;&nbsp;</span><span class="muted">=</span> <span class="v"><a href="mailto:michael@slashdev.io">michael@slashdev.io</a></span></div>
+            <div class="line l7"><span class="k">cities </span><span class="muted">=</span> <span class="v">[ "Seattle, WA", "Stockholm, SE" ]</span></div>
+            <div class="line l8"><span class="k">web&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="muted">=</span> <span class="v"><a href="https://slashdev.io">https://slashdev.io</a></span></div>
+            <div class="line l9"><span class="prompt">michael@slashdev <b>~</b> %</span><span class="cursor"></span></div>
+          </div>
+          <div class="v2-right"><img class="ph" src="michael.png" alt="Michael Ballard"><img class="lg" src="slashdev-white.svg" alt="slashdev"></div>
+        </div>
+      </div>
+    </div>
+    <button class="replay" data-target="stage2">↻ replay</button>
+  </div>
+
+  <!-- VARIATION 3 -->
+  <div class="lab">
+    <div class="lab-tag"><span class="dot"></span> Concept <b>03</b> — Editorial + live clocks</div>
+    <div class="stage" id="stage3">
+      <div class="v3">
+        <div class="v3-top">
+          <div class="v3-portrait"><img src="michael.png" alt="Michael Ballard"></div>
+          <div>
+            <div class="v3-name">Michael Ballard</div>
+            <div class="v3-role">Founder &amp; CEO</div>
+            <img class="v3-logo" src="slashdev-black.svg" alt="slashdev">
+          </div>
+        </div>
+        <div class="v3-draw"></div>
+        <div class="v3-grid">
+          <div class="v3-field"><div class="lbl">United States</div><div class="val"><a href="tel:+19292779018">+1 929 277 9018</a></div></div>
+          <div class="v3-field"><div class="lbl">Sweden</div><div class="val"><a href="tel:+46703688988">+46 70 368 8988</a></div></div>
+          <div class="v3-field"><div class="lbl">Email</div><div class="val"><a href="mailto:michael@slashdev.io">michael@slashdev.io</a></div></div>
+          <div class="v3-field"><div class="lbl">Web</div><div class="val"><a href="https://slashdev.io">slashdev.io</a></div></div>
+        </div>
+        <div class="v3-clocks">
+          <div class="v3-clock"><div class="city"><span class="pin"></span> Seattle, WA</div><div class="time" id="clk-sea">--:--<b>:--</b></div><div class="zone" id="zone-sea">Pacific</div></div>
+          <div class="v3-clock"><div class="city"><span class="pin"></span> Stockholm, SE</div><div class="time" id="clk-sto">--:--<b>:--</b></div><div class="zone" id="zone-sto">Central European</div></div>
+        </div>
+      </div>
+    </div>
+    <button class="replay" data-target="stage3">↻ replay</button>
+  </div>
+
+<script>
+  function fmt(tz){
+    const d=new Date();
+    const t=new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false,timeZone:tz}).format(d);
+    const z=new Intl.DateTimeFormat('en-US',{timeZoneName:'short',timeZone:tz}).formatToParts(d).find(p=>p.type==='timeZoneName')?.value||'';
+    return {t,z};
+  }
+  function tick(){
+    const sea=fmt('America/Los_Angeles'), sto=fmt('Europe/Stockholm');
+    const s=document.getElementById('clk-sea'), k=document.getElementById('clk-sto');
+    if(s){s.innerHTML=sea.t.slice(0,5)+'<b>:'+sea.t.slice(6)+'</b>';document.getElementById('zone-sea').textContent=sea.z;}
+    if(k){k.innerHTML=sto.t.slice(0,5)+'<b>:'+sto.t.slice(6)+'</b>';document.getElementById('zone-sto').textContent=sto.z;}
+  }
+  tick();setInterval(tick,1000);
+  document.querySelectorAll('.replay').forEach(b=>b.addEventListener('click',()=>{
+    const s=document.getElementById(b.dataset.target);s.parentNode.replaceChild(s.cloneNode(true),s);
+  }));
+</script>
+</body>
+</html>

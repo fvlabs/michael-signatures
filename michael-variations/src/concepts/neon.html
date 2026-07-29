@@ -1,0 +1,15 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+  html,body{margin:0;padding:0;background:#070a14}
+  body{width:28px;height:28px;display:grid;place-items:center;overflow:hidden}
+  svg{width:20px;height:20px;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;animation:ink 2s ease-in-out infinite}
+  @keyframes ink{0%,100%{stroke:#3a8fa3;filter:none}50%{stroke:#e0fbff;filter:drop-shadow(0 0 3px #22d3ee) drop-shadow(0 0 7px #215ff6)}}
+</style></head>
+<body data-period="2000" data-w="28" data-h="28">
+<span id="phone"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+<span id="mail" style="display:none"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg></span>
+<span id="pin" style="display:none"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+<script>
+  var which=(location.search.match(/icon=(\w+)/)||[])[1]||'phone';
+  ['phone','mail','pin'].forEach(function(k){document.getElementById(k).style.display=(k===which)?'grid':'none';});
+</script>
+</body></html>

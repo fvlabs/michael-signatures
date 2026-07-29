@@ -1,0 +1,11 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+  html,body{margin:0;padding:0;background:#070a14}
+  body{width:220px;height:10px;display:grid;align-items:center;overflow:hidden}
+  .rule{width:220px;height:3px;border-radius:2px;
+    background:linear-gradient(90deg,#215ff6 0%,#7b61ff 25%,#22d3ee 50%,#7b61ff 75%,#215ff6 100%);
+    background-size:200% 100%;animation:flow 2s linear infinite}
+  @keyframes flow{0%{background-position:0% 0}100%{background-position:-200% 0}}
+</style></head>
+<body data-period="2000" data-w="220" data-h="10">
+  <div class="rule"></div>
+</body></html>

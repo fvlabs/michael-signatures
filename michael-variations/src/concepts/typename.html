@@ -1,0 +1,13 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+  html,body{margin:0;padding:0;background:#070a14}
+  body{width:250px;height:34px;overflow:hidden;display:flex;align-items:center}
+  .line{display:flex;align-items:center;height:34px}
+  .txt{font:bold 24px 'Helvetica Neue',Helvetica,Arial,sans-serif;color:#fff;white-space:nowrap;overflow:hidden;
+    width:0;animation:type 4s steps(15,end) infinite}
+  @keyframes type{0%,6%{width:0}56%,94%{width:186px}100%{width:186px}}
+  .cur{width:3px;height:24px;background:#5b8bff;margin-left:3px;animation:blink 1s steps(1) infinite}
+  @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+</style></head>
+<body data-period="4000" data-w="250" data-h="34">
+  <div class="line"><span class="txt">Michael Ballard</span><span class="cur"></span></div>
+</body></html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+  html,body{margin:0;padding:0;background:#070a14}
+  body{width:250px;height:34px;overflow:hidden;position:relative}
+  .g{position:absolute;left:2px;top:3px;font:bold 24px 'Helvetica Neue',Helvetica,Arial,sans-serif;white-space:nowrap}
+  .base{color:#fff;z-index:3}
+  .r{color:#f43f5e;z-index:1;animation:jr 2.5s steps(1) infinite}
+  .c{color:#22d3ee;z-index:2;animation:jc 2.5s steps(1) infinite}
+  .base{animation:slice 2.5s steps(1) infinite}
+  @keyframes jr{0%,70%{transform:translate(0,0);opacity:0}72%{transform:translate(-3px,1px);opacity:.9}76%{transform:translate(2px,-1px);opacity:.9}80%{transform:translate(-2px,0);opacity:.8}84%,100%{transform:translate(0,0);opacity:0}}
+  @keyframes jc{0%,70%{transform:translate(0,0);opacity:0}72%{transform:translate(3px,-1px);opacity:.9}76%{transform:translate(-2px,1px);opacity:.9}80%{transform:translate(2px,0);opacity:.8}84%,100%{transform:translate(0,0);opacity:0}}
+  @keyframes slice{0%,71%{clip-path:none;transform:none}73%{clip-path:inset(0 0 55% 0);transform:translateX(2px)}75%{clip-path:inset(45% 0 0 0);transform:translateX(-2px)}77%{clip-path:inset(0 0 30% 0);transform:translateX(1px)}79%,100%{clip-path:none;transform:none}}
+</style></head>
+<body data-period="2500" data-w="250" data-h="34">
+  <span class="g r">Michael Ballard</span>
+  <span class="g c">Michael Ballard</span>
+  <span class="g base">Michael Ballard</span>
+</body></html>

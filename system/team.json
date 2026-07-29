@@ -1,0 +1,36 @@
+{
+  "company": {
+    "domain": "slashdev.io",
+    "accent": "#215ff6",
+    "logoWhite": "slashdev-white.svg",
+    "logoBlack": "slashdev-black.svg",
+    "awards": "awards.png",
+    "baseUrl": "https://slashdev.github.io/signatures/"
+  },
+  "members": [
+    {
+      "slug": "michael",
+      "name": "Michael Ballard",
+      "title": "Founder & CEO",
+      "photo": "michael.png",
+      "email": "michael@slashdev.io",
+      "phones": [
+        { "label": "US", "display": "+1 (929) 277-9018", "tel": "+19292779018" },
+        { "label": "SE", "display": "+46 70 368 8988", "tel": "+46703688988" }
+      ],
+      "cities": ["Seattle, WA", "Stockholm, SE"]
+    },
+    {
+      "slug": "kevin",
+      "name": "Kevin Farias",
+      "title": "Tech Lead",
+      "photo": "kevin.png",
+      "email": "kevin@slashdev.io",
+      "phones": [
+        { "label": "US", "display": "+1 (929) 277-9018", "tel": "+19292779018" },
+        { "label": "BR", "display": "+55 54 99936-8153", "tel": "+5554999368153" }
+      ],
+      "cities": ["Seattle, WA", "Stockholm, SE"]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+  html,body{margin:0;padding:0;background:#070a14}
+  body{width:140px;height:140px;display:grid;place-items:center;overflow:hidden}
+  .wrap{width:132px;height:132px;position:relative;display:grid;place-items:center}
+  .track{position:absolute;inset:8px;border-radius:50%;border:1px solid rgba(91,139,255,.30)}
+  img{width:104px;height:104px;border-radius:50%;object-fit:cover;position:relative}
+  .orbit{position:absolute;inset:0;animation:spin 3s linear infinite}
+  .orbit .dot{position:absolute;top:3px;left:50%;margin-left:-5px;width:10px;height:10px;border-radius:50%;
+    background:#67e8f9;box-shadow:0 0 8px #22d3ee,0 0 18px #215ff6}
+  .orbit.t1{animation-delay:-.10s}.orbit.t1 .dot{width:7px;height:7px;margin-left:-3.5px;top:4.5px;opacity:.45;box-shadow:0 0 8px #22d3ee}
+  .orbit.t2{animation-delay:-.20s}.orbit.t2 .dot{width:5px;height:5px;margin-left:-2.5px;top:5.5px;opacity:.22;box-shadow:none}
+  @keyframes spin{to{transform:rotate(360deg)}}
+</style></head>
+<body data-period="3000" data-w="140" data-h="140">
+  <div class="wrap">
+    <span class="track"></span>
+    <img src="michael.png" alt="">
+    <span class="orbit"><span class="dot"></span></span>
+    <span class="orbit t1"><span class="dot"></span></span>
+    <span class="orbit t2"><span class="dot"></span></span>
+  </div>
+</body></html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Michael Ballard &mdash; aurora signature lab</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#0b0d14;color:#e8ecf5;padding:48px 20px 96px;
+  background-image:radial-gradient(900px 500px at 12% -8%,rgba(33,95,246,.18),transparent 60%),radial-gradient(800px 600px at 100% 10%,rgba(91,139,255,.10),transparent 55%)}
+.head{max-width:900px;margin:0 auto 16px}
+.head h1{font-size:26px;letter-spacing:-.01em}
+.head p{color:#8b93a7;margin-top:10px;font-size:14px;line-height:1.6;max-width:760px}
+.head code{background:rgba(255,255,255,.08);padding:1px 6px;border-radius:4px;font-size:13px}
+h2.sect{max-width:900px;margin:56px auto 6px;font-size:20px}
+p.sect-sub{max-width:900px;margin:0 auto;color:#8b93a7;font-size:13px;line-height:1.5}
+.grid{max-width:900px;margin:24px auto 0;display:grid;gap:28px}
+.card{border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px 22px;background:rgba(255,255,255,.02)}
+.card-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.num{color:#5b8bff;font-weight:700;font-size:13px;text-transform:uppercase}
+.card h2{font-size:17px}
+.open{margin-left:auto;color:#8b93a7;font-size:12px;text-decoration:none;border:1px solid rgba(255,255,255,.14);padding:4px 10px;border-radius:999px}
+.open:hover{color:#fff;border-color:#215ff6;background:#215ff6}
+.card p{color:#8b93a7;font-size:13px;line-height:1.5;margin-bottom:14px}
+.frame{border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.06);background:#fff}
+iframe{display:block;width:100%;border:0}
+</style></head>
+<body>
+<div class="head">
+  <h1>Michael Ballard &mdash; aurora signature lab</h1>
+  <p>Email-safe signatures with animation baked into looping GIFs (email clients can't run CSS animation, but they all play GIFs). Markup is table-based with inline styles and real clickable text. Every card keeps the <code>#070a14</code> background the GIFs were rendered against.</p>
+  <p style="margin-top:8px">To use one in email: open it, copy the block between the <code>SIGNATURE</code> comments, and replace each <code>assets/&hellip;</code> src with the absolute GitHub Pages URL (e.g. <code>https://&lt;user&gt;.github.io/&lt;repo&gt;/michael-variations/assets/avatar-orbit.gif</code>).</p>
+</div>
+
+<h2 class="sect">Animation concepts</h2>
+<p class="sect-sub">8 different animation ideas &mdash; each one is a distinct baked GIF: orbiting comet, radar pulse, spinning ring, typewriter, flowing rule, self-drawing underline, neon icons, waving hand.</p>
+<div class="grid">
+
+    <div class="card">
+      <div class="card-head"><span class="num">c01</span><h2>Orbit</h2>
+        <a class="open" href="michael-variations/c01-orbit.html" target="_blank">open&nbsp;&#8599;</a></div>
+      <p>A comet with a fading trail orbits the portrait on a thin track.</p>
+      <div class="frame"><iframe src="michael-variations/c01-orbit.html" loading="lazy" title="Orbit" style="height:460px"></iframe></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="num">c02</span><h2>Radar Pulse</h2>
+        <a class="open" href="michael-variations/c02-radar.html" target="_blank">open&nbsp;&#8599;</a></div>
+      <p>Sonar rings ripple outward from the portrait and dissolve.</p>
+      <div class="frame"><iframe src="michael-variations/c02-radar.html" loading="lazy" title="Radar Pulse" style="height:460px"></iframe></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="num">c03</span><h2>Ring Spin</h2>
+        <a class="open" href="michael-variations/c03-ring-spin.html" target="_blank">open&nbsp;&#8599;</a></div>
+      <p>The aurora conic-gradient ring rotates continuously around a steady portrait.</p>
+      <div class="frame"><iframe src="michael-variations/c03-ring-spin.html" loading="lazy" title="Ring Spin" style="height:460px"></iframe></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="num">c04</span><h2>Typewriter</h2>
+        <a class="open" href="michael-variations/c04-typewriter.html" target="_blank">open&nbsp;&#8599;</a></div>
+      <p>The name types itself out with a blinking caret, then resets.</p>
+      <div class="frame"><iframe src="michael-variations/c04-typewriter.html" loading="lazy" title="Typewriter" style="height:460px"></iframe></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="num">c05</span><h2>Comet Rule</h2>
+        <a class="open" href="michael-variations/c05-comet-rule.html" target="_blank">open&nbsp;&#8599;</a></div>
+      <p>The divider is a live gradient stream — blue, violet and cyan flowing left to right.</p>
+      <div class="frame"><iframe src="michael-variations/c05-comet-rule.html" loading="lazy" title="Comet Rule" style="height:460px"></iframe></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="num">c06</span><h2>Signature Draw</h2>
+        <a class="open" href="michael-variations/c06-signature-draw.html" target="_blank">open&nbsp;&#8599;</a></div>
+      <p>A hand-drawn underline sketches itself beneath the name, holds, and fades.</p>
+      <div class="frame"><iframe src="michael-variations/c06-signature-draw.html" loading="lazy" title="Signature Draw" style="height:460px"></iframe></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="num">c07</span><h2>Neon Icons</h2>
+        <a class="open" href="michael-variations/c07-neon-icons.html" target="_blank">open&nbsp;&#8599;</a></div>
+      <p>The contact icons breathe neon — glowing up to bright cyan and settling back.</p>
+      <div class="frame"><iframe src="michael-variations/c07-neon-icons.html" loading="lazy" title="Neon Icons" style="height:460px"></iframe></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="num">c08</span><h2>Hello Wave</h2>
+        <a class="open" href="michael-variations/c08-wave.html" target="_blank">open&nbsp;&#8599;</a></div>
+      <p>A hand waves hello next to the name every couple of seconds.</p>
+      <div class="frame"><iframe src="michael-variations/c08-wave.html" loading="lazy" title="Hello Wave" style="height:460px"></iframe></div>
+    </div>
+</div>
+
+<h2 class="sect">Layout &amp; accent variations</h2>
+<p class="sect-sub">The earlier set &mdash; same flip/pulse animations as the original, varying layout, accent color, framing and density.</p>
+<div class="grid">
+
+    <div class="card">
+      <div class="card-head"><span class="num">01</span><h2>Classic Blue</h2>
+        <a class="open" href="michael-variations/01-classic-blue.html" target="_blank">open&nbsp;&#8599;</a></div>
+      
+      <div class="frame"><iframe src="michael-variations/01-classic-blue.html" loading="lazy" title="Classic Blue" style="height:440px"></iframe></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="num">02</span><h2>Gradient Rule</h2>
+        <a class="open" href="michael-variations/02-gradient-rule.html" target="_blank">open&nbsp;&#8599;</a></div>
+      
+      <div class="frame"><iframe src="michael-variations/02-gradient-rule.html" loading="lazy" title="Gradient Rule" style="height:440px"></iframe></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="num">03</span><h2>Avatar Right</h2>
+        <a class="open" href="michael-variations/03-avatar-right.html" target="_blank">open&nbsp;&#8599;</a></div>
+      
+      <div class="frame"><iframe src="michael-variations/03-avatar-right.html" loading="lazy" title="Avatar Right" style="height:440px"></iframe></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="num">04</span><h2>Stacked Center</h2>
+        <a class="open" href="michael-variations/04-stacked-center.html" target="_blank">open&nbsp;&#8599;</a></div>
+      
+      <div class="frame"><iframe src="michael-variations/04-stacked-center.html" loading="lazy" title="Stacked Center" style="height:440px"></iframe></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="num">05</span><h2>Split Rule</h2>
+        <a class="open" href="michael-variations/05-split-rule.html" target="_blank">open&nbsp;&#8599;</a></div>
+      
+      <div class="frame"><iframe src="michael-variations/05-split-rule.html" loading="lazy" title="Split Rule" style="height:440px"></iframe></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="num">06</span><h2>Framed</h2>
+        <a class="open" href="michael-variations/06-framed.html" target="_blank">open&nbsp;&#8599;</a></div>
+      
+      <div class="frame"><iframe src="michael-variations/06-framed.html" loading="lazy" title="Framed" style="height:440px"></iframe></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="num">07</span><h2>Violet Aurora</h2>
+        <a class="open" href="michael-variations/07-violet.html" target="_blank">open&nbsp;&#8599;</a></div>
+      
+      <div class="frame"><iframe src="michael-variations/07-violet.html" loading="lazy" title="Violet Aurora" style="height:440px"></iframe></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="num">08</span><h2>Cyan Aurora</h2>
+        <a class="open" href="michael-variations/08-cyan.html" target="_blank">open&nbsp;&#8599;</a></div>
+      
+      <div class="frame"><iframe src="michael-variations/08-cyan.html" loading="lazy" title="Cyan Aurora" style="height:440px"></iframe></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="num">09</span><h2>Amber Aurora</h2>
+        <a class="open" href="michael-variations/09-amber.html" target="_blank">open&nbsp;&#8599;</a></div>
+      
+      <div class="frame"><iframe src="michael-variations/09-amber.html" loading="lazy" title="Amber Aurora" style="height:440px"></iframe></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="num">10</span><h2>Compact</h2>
+        <a class="open" href="michael-variations/10-compact.html" target="_blank">open&nbsp;&#8599;</a></div>
+      
+      <div class="frame"><iframe src="michael-variations/10-compact.html" loading="lazy" title="Compact" style="height:440px"></iframe></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="num">11</span><h2>Wide Banner</h2>
+        <a class="open" href="michael-variations/11-wide-banner.html" target="_blank">open&nbsp;&#8599;</a></div>
+      
+      <div class="frame"><iframe src="michael-variations/11-wide-banner.html" loading="lazy" title="Wide Banner" style="height:440px"></iframe></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="num">12</span><h2>Role Badge</h2>
+        <a class="open" href="michael-variations/12-role-badge.html" target="_blank">open&nbsp;&#8599;</a></div>
+      
+      <div class="frame"><iframe src="michael-variations/12-role-badge.html" loading="lazy" title="Role Badge" style="height:440px"></iframe></div>
+    </div>
+</div>
+
+<h2 class="sect">Other experiments</h2>
+<p class="sect-sub">Earlier explorations kept for reference &mdash; these use live CSS animation (browser preview only, not email-safe).</p>
+<div class="grid">
+  <div class="card"><div class="card-head"><h2>Live CSS demos</h2><a class="open" href="live-demos.html" target="_blank">open&nbsp;&#8599;</a></div>
+    <p>The original in-browser signature variations (aurora/glass and others).</p></div>
+  <div class="card"><div class="card-head"><h2>Aurora bold animations</h2><a class="open" href="aurora-variations.html" target="_blank">open&nbsp;&#8599;</a></div>
+    <p>Three bold live-animation takes on the aurora card.</p></div>
+  <div class="card"><div class="card-head"><h2>Michael Ballard signatures</h2><a class="open" href="Michael-Ballard-signatures.html" target="_blank">open&nbsp;&#8599;</a></div>
+    <p>Earlier signature drafts.</p></div>
+</div>
+</body></html>
