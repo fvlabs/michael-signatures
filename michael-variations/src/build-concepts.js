@@ -123,7 +123,7 @@ const layoutSet = [
 
 /* ---------- page shells ---------- */
 /* absolute asset URLs inside signature markup so copied blocks work in email clients */
-const ASSET_BASE = 'https://kevinfarias.github.io/michael-signatures/michael-variations/';
+const ASSET_BASE = 'https://fvlabs.github.io/michael-signatures/michael-variations/';
 const absolutize = (html) => html.replace(/src="assets\//g, `src="${ASSET_BASE}assets/`);
 
 function page(v) {
