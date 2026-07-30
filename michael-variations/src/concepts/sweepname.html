@@ -1,0 +1,15 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+  html,body{margin:0;padding:0;background:#070a14}
+  body{width:250px;height:52px;position:relative;overflow:hidden}
+  .name{position:absolute;left:2px;top:0;font:bold 24px 'Helvetica Neue',Helvetica,Arial,sans-serif;color:#fff;white-space:nowrap}
+  .role{position:absolute;left:2px;top:34px;font:bold 11px 'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:3px;color:#5b8bff;white-space:nowrap}
+  .beam{position:absolute;top:-30%;left:0;width:34%;height:160%;pointer-events:none;
+    background:linear-gradient(105deg,transparent,rgba(255,255,255,.20),rgba(91,139,255,.34),transparent);
+    transform:skewX(-18deg);filter:blur(5px);animation:sweep 3.2s ease-in-out infinite}
+  @keyframes sweep{0%{left:-40%;opacity:0}6%{opacity:1}38%{opacity:1}46%,100%{left:120%;opacity:0}}
+</style></head>
+<body data-period="3200" data-w="250" data-h="52">
+  <span class="name">Michael Ballard</span>
+  <span class="role">FOUNDER &amp; CEO</span>
+  <span class="beam"></span>
+</body></html>

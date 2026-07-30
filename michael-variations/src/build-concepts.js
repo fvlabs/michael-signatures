@@ -111,6 +111,16 @@ const concepts = [
         <td valign="middle" style="margin:0.1px"><img alt="" src="assets/wave.gif" width="36" height="36" style="display:block;border:0"></td>
       </tr>`)}</td></tr>`,
       roleOnly('#5b8bff'), rule('#215ff6'), contacts(), logoRow].join(''))) },
+
+  { file: 'c09-light-sweep', title: 'Light Sweep', anim: 'A soft diagonal light beam sweeps across the name every few seconds (from demo Take B). Contacts stay real clickable text.',
+    body: () => card(twoCol(STATIC_AVATAR, [
+      `<tr><td style="margin:0.1px"><img alt="${M.name}" src="assets/name-sweep.gif" width="250" height="52" style="display:block;border:0"></td></tr>`,
+      rule('#215ff6'), contacts(), logoRow].join(''))) },
+
+  { file: 'c10-light-sweep-card', title: 'Light Sweep — Full Card', anim: 'The beam sweeps across the entire card, photo included — closest to the demo video. Tradeoff: the whole signature is one image, so contacts are not individually clickable (the card links to slashdev.io).',
+    body: () => `<table cellpadding="0" cellspacing="0" border="0" style="margin:0.1px;border-collapse:collapse"><tbody><tr>
+<td style="margin:0.1px"><a href="${M.site.href}" style="text-decoration:none"><img alt="Michael Ballard — Founder &amp; CEO — +1 (929) 277-9018 — michael@slashdev.io — slashdev.io" src="assets/card-sweep.gif" width="560" height="308" style="display:block;border:0;border-radius:16px"></a></td>
+</tr></tbody></table>` },
 ];
 
 /* ---------- previous layout/accent set (kept, listed second in the gallery) ---------- */

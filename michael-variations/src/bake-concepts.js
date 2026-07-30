@@ -26,6 +26,8 @@ const jobs = [
   { file: 'neon.html',     out: 'ic-neon-mail.gif',  fps: 16, query: '?icon=mail' },
   { file: 'neon.html',     out: 'ic-neon-pin.gif',   fps: 16, query: '?icon=pin' },
   { file: 'wave.html',     out: 'wave.gif',          fps: 16 },
+  { file: 'sweepname.html', out: 'name-sweep.gif',   fps: 16 },
+  { file: 'sweepcard.html', out: 'card-sweep.gif',   fps: 12 },
 ];
 
 (async () => {

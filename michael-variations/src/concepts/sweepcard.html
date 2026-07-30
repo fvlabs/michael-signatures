@@ -1,0 +1,37 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+  html,body{margin:0;padding:0;background:#070a14}
+  body{width:560px;height:308px;position:relative;overflow:hidden;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
+  .card{position:absolute;inset:0;padding:36px 38px;box-sizing:border-box;display:flex;gap:30px;align-items:center}
+  .avatar{width:132px;height:132px;flex:0 0 auto}
+  .avatar img{width:100%;height:100%;display:block}
+  .info{display:flex;flex-direction:column}
+  .name{font-size:26px;font-weight:bold;color:#fff;line-height:1.1}
+  .role{margin-top:7px;font-size:11px;font-weight:bold;letter-spacing:3px;color:#5b8bff}
+  .rule{margin:15px 0 14px;width:230px;height:1px;background:#215ff6}
+  .row{display:flex;align-items:center;gap:11px;margin-bottom:9px;color:#c3cbdc;font-size:14px}
+  .row.em{color:#fff;font-weight:bold}
+  .row svg{width:19px;height:19px;stroke:#5b8bff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .brand{display:flex;align-items:center;gap:10px;margin-top:8px}
+  .brand img{width:62px;display:block}
+  .brand span{color:#727b91;font-size:13px}
+  .beam{position:absolute;top:-40%;left:0;width:36%;height:180%;z-index:3;pointer-events:none;
+    background:linear-gradient(105deg,transparent,rgba(255,255,255,.16),rgba(91,139,255,.28),transparent);
+    transform:skewX(-18deg);filter:blur(6px);animation:sweep 3.6s ease-in-out infinite}
+  @keyframes sweep{0%{left:-45%;opacity:0}6%{opacity:1}40%{opacity:1}48%,100%{left:125%;opacity:0}}
+</style></head>
+<body data-period="3600" data-w="560" data-h="308">
+<div class="card">
+  <div class="avatar"><img src="../../assets/avatar-michael.png" alt=""></div>
+  <div class="info">
+    <div class="name">Michael Ballard</div>
+    <div class="role">FOUNDER &amp; CEO</div>
+    <div class="rule"></div>
+    <div class="row"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+1 (929) 277-9018</div>
+    <div class="row"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+46 70 368 8988</div>
+    <div class="row em"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>michael@slashdev.io</div>
+    <div class="row"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Seattle, WA &middot; Stockholm, SE</div>
+    <div class="brand"><img src="../../assets/logo-white.png" alt="slashdev"><span>slashdev.io</span></div>
+  </div>
+</div>
+<span class="beam"></span>
+</body></html>
