@@ -2,8 +2,9 @@
   html,body{margin:0;padding:0;background:#070a14}
   body{width:560px;height:308px;position:relative;overflow:hidden;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
   .card{position:absolute;inset:0;padding:36px 38px;box-sizing:border-box;display:flex;gap:30px;align-items:center}
-  .avatar{width:132px;height:132px;flex:0 0 auto}
-  .avatar img{width:100%;height:100%;display:block}
+  .avatar{width:132px;height:132px;flex:0 0 auto;position:relative;display:grid;place-items:center}
+  .avatar .ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,#215ff6,#7b61ff,#00d1ff,#215ff6);box-shadow:0 0 26px rgba(33,95,246,.40)}
+  .avatar img{position:relative;width:116px;height:116px;border-radius:50%;object-fit:cover;border:4px solid #070a14;display:block}
   .info{display:flex;flex-direction:column}
   .name{font-size:26px;font-weight:bold;color:#fff;line-height:1.1}
   .role{margin-top:7px;font-size:11px;font-weight:bold;letter-spacing:3px;color:#5b8bff}
@@ -21,7 +22,7 @@
 </style></head>
 <body data-period="3600" data-w="560" data-h="308">
 <div class="card">
-  <div class="avatar"><img src="../../assets/avatar-michael.png" alt=""></div>
+  <div class="avatar"><span class="ring"></span><img src="michael.png" alt=""></div>
   <div class="info">
     <div class="name">Michael Ballard</div>
     <div class="role">FOUNDER &amp; CEO</div>
