@@ -15,10 +15,14 @@ const TMP = '/tmp/light-frames';
 /* scale = deviceScaleFactor: the GIF is baked at scale× and displayed at 1×,
    so the glyphs stay crisp on high-DPI mail clients. */
 const jobs = [
-  { file: 'social.html', out: 'ic-web.gif',      fps: 12, scale: 3, query: '?icon=web' },
-  { file: 'social.html', out: 'ic-linkedin.gif', fps: 12, scale: 3, query: '?icon=linkedin' },
-  { file: 'social.html', out: 'ic-x.gif',        fps: 12, scale: 3, query: '?icon=x' },
-  { file: 'social.html', out: 'ic-github.gif',   fps: 12, scale: 3, query: '?icon=github' },
+  /* slot = position in the cascade. Both icon sets share web (1) and linkedin (2);
+     x/github and instagram/facebook are the interchangeable 3rd and 4th. */
+  { file: 'social.html', out: 'ic-web.gif',       fps: 12, scale: 3, query: '?icon=web&slot=1' },
+  { file: 'social.html', out: 'ic-linkedin.gif',  fps: 12, scale: 3, query: '?icon=linkedin&slot=2' },
+  { file: 'social.html', out: 'ic-x.gif',         fps: 12, scale: 3, query: '?icon=x&slot=3' },
+  { file: 'social.html', out: 'ic-github.gif',    fps: 12, scale: 3, query: '?icon=github&slot=4' },
+  { file: 'social.html', out: 'ic-instagram.gif', fps: 12, scale: 3, query: '?icon=instagram&slot=3' },
+  { file: 'social.html', out: 'ic-facebook.gif',  fps: 12, scale: 3, query: '?icon=facebook&slot=4' },
   { file: 'badge.html',  out: 'badge-verified.gif', fps: 12, scale: 3 },
   { file: 'avatar.html', out: 'avatar-ring.gif', fps: 16 },
   { file: 'logo.html',   out: 'logo-shine.gif',  fps: 12 },

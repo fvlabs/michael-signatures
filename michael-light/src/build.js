@@ -41,12 +41,53 @@ const M = {
 
 /* TODO: swap in Michael's real profile URLs — these all point at slashdev.io
    for now so nothing in a shipped signature is a dead link. */
-const SOCIALS = [
-  { key: 'web', alt: 'slashdev.io', href: 'https://slashdev.io' },
-  { key: 'linkedin', alt: 'LinkedIn', href: 'https://slashdev.io' },
-  { key: 'x', alt: 'X', href: 'https://slashdev.io' },
-  { key: 'github', alt: 'GitHub', href: 'https://slashdev.io' },
+const HREF = {
+  web: 'https://slashdev.io',
+  linkedin: 'https://slashdev.io',
+  x: 'https://slashdev.io',
+  github: 'https://slashdev.io',
+  instagram: 'https://slashdev.io',
+  facebook: 'https://slashdev.io',
+};
+const ALT = { web: 'slashdev.io', linkedin: 'LinkedIn', x: 'X', github: 'GitHub', instagram: 'Instagram', facebook: 'Facebook' };
+
+const ours = (k) => ({ key: k, src: `assets/ic-${k}.gif`, w: 24, h: 24, alt: ALT[k], href: HREF[k] });
+/* The vendor GIFs are 140x128 (web 133x128) and their glyph fills only ~41-49%
+   of that canvas, so they need both their own aspect and a bigger display box
+   to reach the same optical size as ours. */
+const vendor = (k, w, h) => ({ key: k, src: `assets/ic-vendor-${k}.gif`, w, h, alt: ALT[k], href: HREF[k] });
+const vendorSet = (scale) => [
+  vendor('web', Math.round(24 * scale), Math.round(23 * scale)),
+  vendor('linkedin', Math.round(24 * scale), Math.round(22 * scale)),
+  vendor('instagram', Math.round(24 * scale), Math.round(22 * scale)),
+  vendor('facebook', Math.round(24 * scale), Math.round(22 * scale)),
 ];
+
+const ICON_SETS = {
+  dev: {
+    label: 'Dev set (ours)',
+    note: 'Baked in-house: web, LinkedIn, X, GitHub. Solid glyphs of matched ink mass, one lift-and-settle cascade per 6s that warms to slashdev blue.',
+    icons: ['web', 'linkedin', 'x', 'github'].map(ours),
+  },
+  social: {
+    label: 'Social set (ours)',
+    note: 'Same baked style, same cascade — Instagram and Facebook in place of X and GitHub.',
+    icons: ['web', 'linkedin', 'instagram', 'facebook'].map(ours),
+  },
+  vendor: {
+    label: 'Reference set (their files, as-sent at 24px)',
+    note: 'The exact GIFs from the signature you sent, copied into this repo rather than hotlinked, so their bucket can&rsquo;t break it later. Sized exactly as the original markup does (<code>width="24"</code>) &mdash; because their glyph fills only ~41&ndash;49% of a padded 140&times;128 canvas, the visible mark lands around 10px. Their loop is ~6.5s and starts from nothing, so the icons are invisible for roughly the first 0.8s of every cycle.',
+    icons: vendorSet(1),
+  },
+  'vendor-lg': {
+    label: 'Reference set, ink-matched',
+    note: 'Same files scaled up so their glyph reads at the same optical size as ours (~18px of ink). Fairer comparison, but it widens the icon panel and the outlines get noticeably soft &mdash; the source is only 140px across.',
+    icons: vendorSet(1.8),
+  },
+};
+
+/* which set L1–L4 are built with — icons.html shows all three side by side */
+let SOCIALS = ICON_SETS.dev.icons;
 
 /* ---------- primitives ---------- */
 const tbl = (inner, extra = '') =>
@@ -75,15 +116,18 @@ const nameRow = (size = 16) => tbl(`<tr>
   <td align="left" valign="middle" style="margin:0.1px">${img('assets/badge-verified.gif', 16, 16, 'verified')}</td>
 </tr>`);
 
+const iconLink = (s) =>
+  `<a href="${s.href}" target="_blank" style="margin:0;padding:0;border:0;text-decoration:none">${img(s.src, s.w, s.h, s.alt)}</a>`;
+
 /* social icons stacked in a column (reference layout) */
 const socialColumn = () => tbl(SOCIALS.map((s, i) => `<tr><td style="margin:0.1px;padding:${i ? '7px' : '0'} 0 0 0">
-  <a href="${s.href}" target="_blank" style="margin:0;padding:0;border:0;text-decoration:none">${img(`assets/ic-${s.key}.gif`, 24, 24, s.alt)}</a>
+  ${iconLink(s)}
 </td></tr>`).join(''));
 
 /* social icons in a horizontal strip */
 const socialRow = (gap = 10) => tbl(`<tr>${SOCIALS.map((s, i) => `
   ${i ? spacer(gap) : ''}
-  <td valign="middle" style="margin:0.1px"><a href="${s.href}" target="_blank" style="margin:0;padding:0;border:0;text-decoration:none">${img(`assets/ic-${s.key}.gif`, 24, 24, s.alt)}</a></td>`).join('')}</tr>`);
+  <td valign="middle" style="margin:0.1px">${iconLink(s)}</td>`).join('')}</tr>`);
 
 const hairline = (w = 300, pad = '12px 0 12px 0') =>
   `<tr><td style="margin:0.1px;padding:${pad}">${tbl(`<tr><td width="${w}" height="1" bgcolor="${C.rule}" style="background-color:${C.rule};font-size:1px;line-height:1px">&nbsp;</td></tr>`)}</td></tr>`;
@@ -188,6 +232,37 @@ ${absolutize(v.body())}
 `;
 }
 
+/* side-by-side page: the same L1 card rendered with each icon set */
+function iconsPage() {
+  const active = SOCIALS;
+  const sections = Object.entries(ICON_SETS).map(([key, set]) => {
+    SOCIALS = set.icons;
+    const body = absolutize(variants[0].body());
+    return `<h2>${set.label} <span class="key">ICON_SET=${key}</span></h2>
+<p class="note">${set.note}</p>
+<div class="box">
+<!-- ===== SIGNATURE (${key}) — COPY FROM HERE ===== -->
+${body}
+<!-- ===== END ===== -->
+</div>`;
+  }).join('\n');
+  SOCIALS = active;
+  return `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Michael Ballard &mdash; icon sets compared</title>
+<style>body{background:#fff;margin:0;padding:40px 24px 80px;font-family:${FONT};color:#18181b}
+h1{font-size:24px;max-width:860px;margin:0 auto 8px}h2{font-size:17px;max-width:860px;margin:44px auto 4px}
+.key{font-weight:400;font-size:12px;color:#a1a1aa;background:#f4f4f5;padding:2px 7px;border-radius:5px;vertical-align:middle}
+p.note,p.lede{max-width:860px;margin:0 auto 14px;color:#52525b;font-size:13px;line-height:1.6}
+.box{max-width:860px;margin:0 auto;border:1px dashed #d4d4d8;padding:24px;border-radius:10px}
+code{background:#f4f4f5;padding:1px 5px;border-radius:4px}</style></head>
+<body>
+<h1>Icon sets compared</h1>
+<p class="lede">Same L1 card, three icon sets. Pick one and I'll rebuild all four layouts with it &mdash; or copy the block you want straight from here. Build a set into every layout with <code>node src/build.js --set=vendor</code>.</p>
+${sections}
+</body></html>
+`;
+}
+
 function indexPage(prefix = '') {
   const cards = variants.map(v => `
     <div class="card">
@@ -221,6 +296,7 @@ iframe{display:block;width:100%;border:0}
 <div class="head">
   <h1>Michael Ballard &mdash; light panel signatures</h1>
   <p>The bordered-panel signature idea (animated social column, verified name, circular portrait) rebuilt on the slashdev brand: white card, <code>#215ff6</code> accent, shining <code>/dev</code> mark, rotating portrait ring, and a social column that ripples top-to-bottom.</p>
+  <p style="margin-top:8px"><b><a href="${prefix}icons.html" style="color:${C.accent}">Compare the icon sets &#8599;</a></b> &mdash; our baked dev set, our social set (Instagram/Facebook), and the reference GIFs from the signature you sent, at both their original 24px and an ink-matched size.</p>
   <p style="margin-top:8px">Every animation is a baked GIF rendered on white &mdash; email clients can't run CSS, but they all play GIFs. Keep the card background white or the GIF edges show. Open a card and copy the block between the <code>SIGNATURE</code> comments; image URLs are already public.</p>
 </div>
 <div class="grid">
@@ -230,10 +306,20 @@ ${cards}
 `;
 }
 
+/* --set=dev|social|vendor picks the icon set baked into L1–L4 */
+const setArg = (process.argv.find(a => a.startsWith('--set=')) || '').split('=')[1];
+if (setArg) {
+  if (!ICON_SETS[setArg]) { console.error(`unknown --set=${setArg}; use ${Object.keys(ICON_SETS).join('|')}`); process.exit(1); }
+  SOCIALS = ICON_SETS[setArg].icons;
+}
+console.log('icon set:', setArg || 'dev');
+
 for (const v of variants) {
   fs.writeFileSync(path.join(OUT, `${v.file}.html`), page(v));
   console.log('wrote', v.file + '.html');
 }
+fs.writeFileSync(path.join(OUT, 'icons.html'), iconsPage());
+console.log('wrote icons.html');
 fs.writeFileSync(path.join(OUT, 'index.html'), indexPage());
 console.log('wrote index.html');
 
@@ -245,6 +331,7 @@ if (process.argv.includes('--local')) {
   fs.mkdirSync(P, { recursive: true });
   const localize = (html) => html.split(ASSET_BASE + 'assets/').join('../assets/');
   for (const v of variants) fs.writeFileSync(path.join(P, `${v.file}.html`), localize(page(v)));
+  fs.writeFileSync(path.join(P, 'icons.html'), localize(iconsPage()));
   fs.writeFileSync(path.join(P, 'index.html'), indexPage());
   console.log('wrote preview/ (relative asset paths)');
 }
