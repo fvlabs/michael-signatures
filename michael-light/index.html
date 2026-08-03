@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Michael Ballard &mdash; light panel signatures</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,'Helvetica Neue',Helvetica,Arial,sans-serif;background:#fafafa;color:#18181b;padding:48px 20px 96px}
+.head{max-width:900px;margin:0 auto 8px}
+.head h1{font-size:26px;letter-spacing:-.01em}
+.head p{color:#52525b;margin-top:10px;font-size:14px;line-height:1.6;max-width:760px}
+.head code{background:#f0f0f2;padding:1px 6px;border-radius:4px;font-size:13px}
+.grid{max-width:900px;margin:28px auto 0;display:grid;gap:24px}
+.card{border:1px solid #e4e4e7;border-radius:14px;padding:20px 22px;background:#fff}
+.card-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.num{color:#215ff6;font-weight:700;font-size:13px;text-transform:uppercase}
+.card h2{font-size:17px}
+.open{margin-left:auto;color:#71717a;font-size:12px;text-decoration:none;border:1px solid #e4e4e7;padding:4px 10px;border-radius:999px}
+.open:hover{color:#fff;border-color:#215ff6;background:#215ff6}
+.card p{color:#52525b;font-size:13px;line-height:1.55;margin-bottom:14px}
+.frame{border-radius:10px;overflow:hidden;border:1px solid #f0f0f2;background:#fff}
+iframe{display:block;width:100%;border:0}
+</style></head>
+<body>
+<div class="head">
+  <h1>Michael Ballard &mdash; light panel signatures</h1>
+  <p>The bordered-panel signature idea (animated social column, verified name, circular portrait) rebuilt on the slashdev brand: white card, <code>#215ff6</code> accent, shining <code>/dev</code> mark, rotating portrait ring, and a social column that ripples top-to-bottom.</p>
+  <p style="margin-top:8px">Every animation is a baked GIF rendered on white &mdash; email clients can't run CSS, but they all play GIFs. Keep the card background white or the GIF edges show. Open a card and copy the block between the <code>SIGNATURE</code> comments; image URLs are already public.</p>
+</div>
+<div class="grid">
+
+    <div class="card">
+      <div class="card-head"><span class="num">L1</span><h2>Two Panel</h2>
+        <a class="open" href="L1-two-panel.html" target="_blank">open&nbsp;&#8599;</a></div>
+      <p>Closest to the reference: a slim bordered panel holding the animated social column, a gap, then the main panel with the shining logo, verified name, contacts and the ring portrait.</p>
+      <div class="frame"><iframe src="L1-two-panel.html" loading="lazy" title="Two Panel" style="height:340px"></iframe></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="num">L2</span><h2>Single Card</h2>
+        <a class="open" href="L2-single-card.html" target="_blank">open&nbsp;&#8599;</a></div>
+      <p>One bordered card. Portrait on the left, details on the right, and the social icons on a horizontal strip below a hairline.</p>
+      <div class="frame"><iframe src="L2-single-card.html" loading="lazy" title="Single Card" style="height:340px"></iframe></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="num">L3</span><h2>Borderless</h2>
+        <a class="open" href="L3-borderless.html" target="_blank">open&nbsp;&#8599;</a></div>
+      <p>Same content with the frames removed — a single blue accent rule instead of panels. Lighter in a long thread, and the least likely to clash with a quoted reply.</p>
+      <div class="frame"><iframe src="L3-borderless.html" loading="lazy" title="Borderless" style="height:340px"></iframe></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="num">L4</span><h2>Compact</h2>
+        <a class="open" href="L4-compact.html" target="_blank">open&nbsp;&#8599;</a></div>
+      <p>A one-panel strip for replies: small portrait, name, role and email only, with the social icons on the right edge.</p>
+      <div class="frame"><iframe src="L4-compact.html" loading="lazy" title="Compact" style="height:340px"></iframe></div>
+    </div>
+</div>
+</body></html>

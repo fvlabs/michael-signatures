@@ -1,0 +1,15 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+  /* slashdev mark on white with a light streak passing over it every loop.
+     No mask needed: on white the streak is only visible where there is ink. */
+  html,body{margin:0;padding:0;background:#ffffff}
+  body{width:96px;height:62px;display:grid;place-items:center;overflow:hidden}
+  .mark{position:relative;width:92px;height:59px;overflow:hidden}
+  .mark img{display:block;width:92px;height:59px}
+  .streak{position:absolute;top:-30%;bottom:-30%;width:26px;left:-40%;
+    background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.92),rgba(255,255,255,0));
+    transform:skewX(-18deg);animation:sweep 4s ease-in-out infinite}
+  @keyframes sweep{0%,45%{left:-40%}88%,100%{left:115%}}
+</style></head>
+<body data-period="4000" data-w="96" data-h="62">
+  <div class="mark"><img src="slashdev-mark.svg" alt=""><span class="streak"></span></div>
+</body></html>
