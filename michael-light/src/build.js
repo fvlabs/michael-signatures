@@ -154,6 +154,7 @@ const variants = [
   {
     file: 'L1-two-panel',
     title: 'Two Panel',
+    h: 470,
     desc: 'Closest to the reference: a slim bordered panel holding the animated social column, a gap, then the main panel with the shining logo, verified name, contacts and the ring portrait.',
     body: () => wrap(tbl(`<tr>
       ${panel(socialColumn(), '10px 8px')}
@@ -167,6 +168,7 @@ const variants = [
   {
     file: 'L2-single-card',
     title: 'Single Card',
+    h: 440,
     desc: 'One bordered card. Portrait on the left, details on the right, and the social icons on a horizontal strip below a hairline.',
     body: () => wrap(tbl(`<tr>${panel(tbl(`<tr>
       <td align="left" valign="middle" style="margin:0.1px">${avatar(120)}</td>
@@ -185,6 +187,7 @@ const variants = [
   {
     file: 'L3-borderless',
     title: 'Borderless',
+    h: 420,
     desc: 'Same content with the frames removed — a single blue accent rule instead of panels. Lighter in a long thread, and the least likely to clash with a quoted reply.',
     body: () => wrap(tbl(`<tr>
       <td width="3" bgcolor="${C.accent}" style="margin:0.1px;background-color:${C.accent};font-size:1px;line-height:1px;border-radius:2px">&nbsp;</td>
@@ -199,6 +202,7 @@ const variants = [
   {
     file: 'L4-compact',
     title: 'Compact',
+    h: 320,
     desc: 'A one-panel strip for replies: small portrait, name, role and email only, with the social icons on the right edge.',
     body: () => wrap(tbl(`<tr>${panel(tbl(`<tr>
       <td align="left" valign="middle" style="margin:0.1px">${avatar(64)}</td>
@@ -269,7 +273,7 @@ function indexPage(prefix = '') {
       <div class="card-head"><span class="num">${v.file.split('-')[0]}</span><h2>${v.title}</h2>
         <a class="open" href="${prefix}${v.file}.html" target="_blank">open&nbsp;&#8599;</a></div>
       <p>${v.desc}</p>
-      <div class="frame"><iframe src="${prefix}${v.file}.html" loading="lazy" title="${v.title}" style="height:340px"></iframe></div>
+      <div class="frame"><iframe src="${prefix}${v.file}.html" loading="lazy" title="${v.title}" style="height:${v.h}px"></iframe></div>
     </div>`).join('\n');
   return `<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
