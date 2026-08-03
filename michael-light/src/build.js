@@ -236,3 +236,15 @@ for (const v of variants) {
 }
 fs.writeFileSync(path.join(OUT, 'index.html'), indexPage());
 console.log('wrote index.html');
+
+/* `node src/build.js --local` also writes preview/ with relative asset paths,
+   so the set can be reviewed on disk before the GIFs are live on Pages.
+   preview/ is gitignored — the committed pages always carry public URLs. */
+if (process.argv.includes('--local')) {
+  const P = path.join(OUT, 'preview');
+  fs.mkdirSync(P, { recursive: true });
+  const localize = (html) => html.split(ASSET_BASE + 'assets/').join('../assets/');
+  for (const v of variants) fs.writeFileSync(path.join(P, `${v.file}.html`), localize(page(v)));
+  fs.writeFileSync(path.join(P, 'index.html'), indexPage());
+  console.log('wrote preview/ (relative asset paths)');
+}
