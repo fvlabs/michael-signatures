@@ -1,24 +1,57 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><style>
-  /* 24px social glyph on white. One shared 3s period; each icon moves in its own
-     slice of that period, so the stacked column ripples top-to-bottom in email. */
+  /* One cohesive monochrome set: solid glyphs of matched weight in a single ink,
+     the way the reference set reads on a white card. Motion is deliberately
+     sparse — one 6s loop, each icon lifting and settling in its own slice of it,
+     so the stacked column cascades once and then holds still. Each lift also
+     warms from ink to slashdev blue and back. */
   html,body{margin:0;padding:0;background:#ffffff}
-  body{width:24px;height:24px;display:grid;place-items:center;overflow:hidden}
-  svg{width:22px;height:22px;display:block}
-  #web svg{fill:none;stroke:#215ff6;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-  #web{animation:s1 3s ease-in-out infinite;transform-origin:50% 50%}
-  #linkedin{animation:s2 3s ease-in-out infinite;transform-origin:50% 50%}
-  #x{animation:s3 3s ease-in-out infinite;transform-origin:50% 50%}
-  #github{animation:s4 3s ease-in-out infinite;transform-origin:50% 50%}
-  @keyframes s1{0%,100%{transform:scale(1) rotate(0)}5%{transform:scale(1.16) rotate(-8deg)}12%{transform:scale(1) rotate(0)}}
-  @keyframes s2{0%,20%,100%{transform:translateY(0)}25%{transform:translateY(-3px)}32%{transform:translateY(0)}}
-  @keyframes s3{0%,40%,100%{transform:scale(1)}45%{transform:scale(1.2)}52%{transform:scale(1)}}
-  @keyframes s4{0%,60%,100%{transform:rotate(0)}65%{transform:rotate(-12deg)}70%{transform:rotate(10deg)}78%{transform:rotate(0)}}
+  body{width:24px;height:24px;display:grid;place-items:center;overflow:hidden;color:#18181b}
+  svg{width:23px;height:23px;display:block;overflow:visible}
+  span{display:grid;place-items:center;transform-origin:50% 60%}
+  .cut{stroke:#fff;stroke-width:1.9;fill:none;stroke-linecap:round}
+
+  #web{animation:lift1 6s cubic-bezier(.34,1.4,.5,1) infinite,tint1 6s ease-in-out infinite}
+  #linkedin{animation:lift2 6s cubic-bezier(.34,1.4,.5,1) infinite,tint2 6s ease-in-out infinite}
+  #x{animation:lift3 6s cubic-bezier(.34,1.4,.5,1) infinite,tint3 6s ease-in-out infinite}
+  #github{animation:lift4 6s cubic-bezier(.34,1.4,.5,1) infinite,tint4 6s ease-in-out infinite}
+
+  /* rest -> compress -> lift with overshoot -> rest. Starts and ends at rest, so
+     the baked GIF closes its loop with no visible jump. */
+  @keyframes lift1{0%,2%{transform:translateY(0) scale(1)}5%{transform:translateY(1px) scale(.9)}
+    10%{transform:translateY(-3px) scale(1.1)}16%,100%{transform:translateY(0) scale(1)}}
+  @keyframes lift2{0%,7%{transform:translateY(0) scale(1)}10%{transform:translateY(1px) scale(.9)}
+    15%{transform:translateY(-3px) scale(1.1)}21%,100%{transform:translateY(0) scale(1)}}
+  @keyframes lift3{0%,12%{transform:translateY(0) scale(1)}15%{transform:translateY(1px) scale(.9)}
+    20%{transform:translateY(-3px) scale(1.1)}26%,100%{transform:translateY(0) scale(1)}}
+  @keyframes lift4{0%,17%{transform:translateY(0) scale(1)}20%{transform:translateY(1px) scale(.9)}
+    25%{transform:translateY(-3px) scale(1.1)}31%,100%{transform:translateY(0) scale(1)}}
+
+  @keyframes tint1{0%,3%{color:#18181b}10%{color:#215ff6}20%,100%{color:#18181b}}
+  @keyframes tint2{0%,8%{color:#18181b}15%{color:#215ff6}25%,100%{color:#18181b}}
+  @keyframes tint3{0%,13%{color:#18181b}20%{color:#215ff6}30%,100%{color:#18181b}}
+  @keyframes tint4{0%,18%{color:#18181b}25%{color:#215ff6}35%,100%{color:#18181b}}
 </style></head>
-<body data-period="3000" data-w="24" data-h="24">
-<span id="web"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19"/><path d="M12 2.5c2.6 2.6 3.9 6 3.9 9.5s-1.3 6.9-3.9 9.5c-2.6-2.6-3.9-6-3.9-9.5S9.4 5.1 12 2.5z"/></svg></span>
-<span id="linkedin" style="display:none"><svg viewBox="0 0 24 24"><path fill="#0a66c2" d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.86-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></span>
-<span id="x" style="display:none"><svg viewBox="0 0 24 24"><path fill="#09090b" d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.21-6.82-5.97 6.82H1.68l7.73-8.84L1.25 2.25h6.83l4.71 6.23 5.45-6.23zm-1.16 17.52h1.83L7.08 4.13H5.12l11.96 15.64z"/></svg></span>
-<span id="github" style="display:none"><svg viewBox="0 0 24 24"><path fill="#18181b" d="M12 .3a12 12 0 00-3.8 23.4c.6.1.8-.26.8-.58l-.02-2.04c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.5 1 .1-.78.41-1.31.75-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.11-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 016 0C16.75 5.6 17.75 5.92 17.75 5.92c.65 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.62-5.48 5.92.43.36.82 1.1.82 2.22l-.02 3.29c0 .31.22.69.83.57A12 12 0 0012 .3z"/></svg></span>
+<body data-period="6000" data-w="24" data-h="24">
+
+<!-- solid globe: filled disc with the meridian/latitudes knocked out in white -->
+<span id="web"><svg viewBox="0 0 24 24">
+  <circle cx="12" cy="12" r="10.6" fill="currentColor"/>
+  <path class="cut" d="M1.6 12h20.8"/>
+  <path class="cut" d="M3.6 7.2h16.8"/>
+  <path class="cut" d="M3.6 16.8h16.8"/>
+  <path class="cut" d="M12 1.5c3.1 2.9 4.6 6.6 4.6 10.5S15.1 19.6 12 22.5c-3.1-2.9-4.6-6.6-4.6-10.5S8.9 4.4 12 1.5z"/>
+</svg></span>
+
+<span id="linkedin" style="display:none"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.86-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></span>
+
+<!-- X sits in a solid tile so its ink weight matches the other three glyphs -->
+<span id="x" style="display:none"><svg viewBox="0 0 24 24">
+  <rect x=".8" y=".8" width="22.4" height="22.4" rx="5.2" fill="currentColor"/>
+  <g transform="translate(4.9 4.9) scale(.593)"><path fill="#fff" d="M18.9 1.15h4.02l-8.78 10.03L24 22.85h-8.09l-6.33-8.28-7.25 8.28H.31l9.4-10.74L0 1.15h8.3l5.72 7.57 4.88-7.57zm-1.41 19.28h2.23L6.62 3.44H4.23l13.26 16.99z"/></g>
+</svg></span>
+
+<span id="github" style="display:none"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 .3a12 12 0 00-3.8 23.4c.6.1.82-.26.82-.58l-.02-2.04c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.78-1.34-1.78-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.34-5.47-5.94 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.11-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 016 0c2.3-1.55 3.3-1.23 3.3-1.23.65 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.63-5.48 5.93.43.36.82 1.1.82 2.22l-.02 3.29c0 .32.22.69.83.57A12 12 0 0012 .3z"/></svg></span>
+
 <script>
   var which=(location.search.match(/icon=(\w+)/)||[])[1]||'web';
   ['web','linkedin','x','github'].forEach(function(k){document.getElementById(k).style.display=(k===which)?'grid':'none';});

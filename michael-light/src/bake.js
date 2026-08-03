@@ -12,12 +12,14 @@ const T = path.join(__dirname, 'tiles');
 const OUT = path.join(ROOT, 'assets');
 const TMP = '/tmp/light-frames';
 
+/* scale = deviceScaleFactor: the GIF is baked at scale× and displayed at 1×,
+   so the glyphs stay crisp on high-DPI mail clients. */
 const jobs = [
-  { file: 'social.html', out: 'ic-web.gif',      fps: 14, query: '?icon=web' },
-  { file: 'social.html', out: 'ic-linkedin.gif', fps: 14, query: '?icon=linkedin' },
-  { file: 'social.html', out: 'ic-x.gif',        fps: 14, query: '?icon=x' },
-  { file: 'social.html', out: 'ic-github.gif',   fps: 14, query: '?icon=github' },
-  { file: 'badge.html',  out: 'badge-verified.gif', fps: 14 },
+  { file: 'social.html', out: 'ic-web.gif',      fps: 12, scale: 3, query: '?icon=web' },
+  { file: 'social.html', out: 'ic-linkedin.gif', fps: 12, scale: 3, query: '?icon=linkedin' },
+  { file: 'social.html', out: 'ic-x.gif',        fps: 12, scale: 3, query: '?icon=x' },
+  { file: 'social.html', out: 'ic-github.gif',   fps: 12, scale: 3, query: '?icon=github' },
+  { file: 'badge.html',  out: 'badge-verified.gif', fps: 12, scale: 3 },
   { file: 'avatar.html', out: 'avatar-ring.gif', fps: 16 },
   { file: 'logo.html',   out: 'logo-shine.gif',  fps: 12 },
 ];
@@ -34,7 +36,8 @@ const jobs = [
     }));
     await probe.close();
 
-    const ctx = await b.newContext({ viewport: { width: meta.w, height: meta.h }, deviceScaleFactor: 2 });
+    const dsf = j.scale || 2;
+    const ctx = await b.newContext({ viewport: { width: meta.w, height: meta.h }, deviceScaleFactor: dsf });
     const pg = await ctx.newPage();
     await pg.goto(url, { waitUntil: 'networkidle' });
     await pg.waitForTimeout(400); // fonts/images settle
@@ -58,7 +61,7 @@ const jobs = [
     execSync(`ffmpeg -hide_banner -loglevel error -y -framerate ${j.fps} -i ${dir}/f%04d.png ` +
       `-vf "split[s0][s1];[s0]palettegen=max_colors=200:stats_mode=full[p];[s1][p]paletteuse=dither=sierra2_4a" ` +
       `-loop 0 "${out}"`);
-    console.log(`${j.out}: ${frames} frames, ${meta.w * 2}x${meta.h * 2} -> ${Math.round(fs.statSync(out).size / 1024)} KB`);
+    console.log(`${j.out}: ${frames} frames, ${meta.w * dsf}x${meta.h * dsf} -> ${Math.round(fs.statSync(out).size / 1024)} KB`);
   }
   await b.close();
 })();
