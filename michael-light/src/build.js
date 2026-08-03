@@ -39,29 +39,28 @@ const M = {
   site: { href: 'https://slashdev.io', label: 'slashdev.io' },
 };
 
-/* TODO: swap in Michael's real profile URLs — these all point at slashdev.io
-   for now so nothing in a shipped signature is a dead link. */
+/* Real destinations. Instagram is the company account; the ?igsh= share tracker
+   from the app link is stripped — it identifies whoever copied the link.
+   No Facebook account, so it isn't in any shipping set. x/github are still
+   placeholders and only appear in the non-shipping `dev` comparison set. */
 const HREF = {
   web: 'https://slashdev.io',
-  linkedin: 'https://slashdev.io',
+  linkedin: 'https://www.linkedin.com/in/mballard23/',
+  instagram: 'https://www.instagram.com/slashdevhq',
   x: 'https://slashdev.io',
   github: 'https://slashdev.io',
-  instagram: 'https://slashdev.io',
-  facebook: 'https://slashdev.io',
 };
-const ALT = { web: 'slashdev.io', linkedin: 'LinkedIn', x: 'X', github: 'GitHub', instagram: 'Instagram', facebook: 'Facebook' };
+const ALT = { web: 'slashdev.io', linkedin: 'LinkedIn', x: 'X', github: 'GitHub', instagram: 'Instagram' };
+const SHIPPING = ['web', 'linkedin', 'instagram'];
 
 const ours = (k) => ({ key: k, src: `assets/ic-${k}.gif`, w: 24, h: 24, alt: ALT[k], href: HREF[k] });
 /* The vendor GIFs are 140x128 (web 133x128) and their glyph fills only ~41-49%
    of that canvas, so they need both their own aspect and a bigger display box
    to reach the same optical size as ours. */
 const vendor = (k, w, h) => ({ key: k, src: `assets/ic-vendor-${k}.gif`, w, h, alt: ALT[k], href: HREF[k] });
-const vendorSet = (scale) => [
-  vendor('web', Math.round(24 * scale), Math.round(23 * scale)),
-  vendor('linkedin', Math.round(24 * scale), Math.round(22 * scale)),
-  vendor('instagram', Math.round(24 * scale), Math.round(22 * scale)),
-  vendor('facebook', Math.round(24 * scale), Math.round(22 * scale)),
-];
+const VENDOR_ASPECT = { web: 23 / 24, linkedin: 22 / 24, instagram: 22 / 24, facebook: 22 / 24 };
+const vendorSet = (scale, keys = SHIPPING) =>
+  keys.map(k => vendor(k, Math.round(24 * scale), Math.round(24 * scale * VENDOR_ASPECT[k])));
 
 const ICON_SETS = {
   dev: {
@@ -71,12 +70,12 @@ const ICON_SETS = {
   },
   social: {
     label: 'Social set (ours)',
-    note: 'Same baked style, same cascade — Instagram and Facebook in place of X and GitHub.',
-    icons: ['web', 'linkedin', 'instagram', 'facebook'].map(ours),
+    note: 'Same baked style, same cascade — Instagram in place of X and GitHub.',
+    icons: SHIPPING.map(ours),
   },
   vendor: {
     label: 'Reference set (their files, as-sent at 24px)',
-    note: 'The exact GIFs from the signature you sent, copied into this repo rather than hotlinked, so their bucket can&rsquo;t break it later. Sized exactly as the original markup does (<code>width="24"</code>) &mdash; because their glyph fills only ~41&ndash;49% of a padded 140&times;128 canvas, the visible mark lands around 10px. Their loop is ~6.5s and starts from nothing, so the icons are invisible for roughly the first 0.8s of every cycle.',
+    note: 'The exact GIFs from the signature you sent, copied into this repo rather than hotlinked, so their bucket can&rsquo;t break it later. Web, LinkedIn and Instagram. Sized exactly as the original markup does (<code>width="24"</code>) &mdash; because their glyph fills only ~41&ndash;49% of a padded 140&times;128 canvas, the visible mark lands around 10px. Their loop is ~6.5s and starts from nothing, so the icons are invisible for roughly the first 0.8s of every cycle.',
     icons: vendorSet(1),
   },
   'vendor-lg': {
@@ -163,7 +162,8 @@ const variants = [
     h: 470,
     desc: 'Closest to the reference: a slim bordered panel holding the animated social column, a gap, then the main panel with the shining logo, verified name, contacts and the ring portrait.',
     body: () => wrap(tbl(`<tr>
-      ${panel(socialColumn(), '10px 8px')}
+      ${/* centered so the column sits balanced in the panel whatever its length */ ''}
+      ${panel(socialColumn(), '10px 8px', 'middle')}
       ${spacer(8)}
       ${panel(tbl(`<tr>
         <td align="left" valign="top" style="margin:0.1px">${tbl(details())}</td>
