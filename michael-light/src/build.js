@@ -86,8 +86,10 @@ const ICON_SETS = {
   },
 };
 
-/* which set L1–L4 are built with — icons.html shows all three side by side */
-let SOCIALS = ICON_SETS.dev.icons;
+/* The set L1–L4 ship with — Kevin picked the reference files at their original
+   24px. Override per-build with --set=<key>; icons.html always shows all four. */
+const DEFAULT_SET = 'vendor';
+let SOCIALS = ICON_SETS[DEFAULT_SET].icons;
 
 /* ---------- primitives ---------- */
 const tbl = (inner, extra = '') =>
@@ -124,9 +126,13 @@ const socialColumn = () => tbl(SOCIALS.map((s, i) => `<tr><td style="margin:0.1p
   ${iconLink(s)}
 </td></tr>`).join(''));
 
+/* The vendor glyphs sit in a canvas with ~30% padding baked in on each side, so
+   a strip of them needs a much smaller gap to read as evenly spaced as ours. */
+const padded = () => SOCIALS.some(s => s.src.includes('ic-vendor-'));
+
 /* social icons in a horizontal strip */
 const socialRow = (gap = 10) => tbl(`<tr>${SOCIALS.map((s, i) => `
-  ${i ? spacer(gap) : ''}
+  ${i ? spacer(padded() ? Math.max(1, gap - 7) : gap) : ''}
   <td valign="middle" style="margin:0.1px">${iconLink(s)}</td>`).join('')}</tr>`);
 
 const hairline = (w = 300, pad = '12px 0 12px 0') =>
@@ -316,7 +322,7 @@ if (setArg) {
   if (!ICON_SETS[setArg]) { console.error(`unknown --set=${setArg}; use ${Object.keys(ICON_SETS).join('|')}`); process.exit(1); }
   SOCIALS = ICON_SETS[setArg].icons;
 }
-console.log('icon set:', setArg || 'dev');
+console.log('icon set:', setArg || DEFAULT_SET);
 
 for (const v of variants) {
   fs.writeFileSync(path.join(OUT, `${v.file}.html`), page(v));
