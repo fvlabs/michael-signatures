@@ -53,10 +53,14 @@ const SOCIALS = [
   { src: 'assets/ic-vendor-instagram.gif', w: 24, h: 22, alt: 'Instagram', href: 'https://www.instagram.com/slashdevhq' },
 ];
 
-/* awards strip: 746x306 asset shown at 373x153 to match the card width exactly.
+/* Awards strip: 1200x491 asset shown at 600x246 — deliberately wider than the
+   ~373px card. 600 is where the Clutch sub-scores become comfortably readable
+   (~10px), and only 11% of the source image is gap, so there is nothing to win
+   back by re-spacing the three blocks. Left-aligned with the card but not the
+   same width, which reads fine as a footer banner.
    The Business of Apps badge year was updated 2025 -> 2026. */
 const AWARDS = {
-  src: 'assets/awards-2026.png', w: 373, h: 153,
+  src: 'assets/awards-2026.png', w: 600, h: 246,
   alt: 'Top App Development Company 2026 (Business of Apps) — Clutch 5.0 — Google Reviews 5.0',
   href: 'https://slashdev.io',
 };
@@ -109,6 +113,9 @@ const details = () => tbl([
 /* outer wrapper — resets Gmail's inherited styles the way the reference does */
 const wrap = (inner) => `<table cellpadding="0" cellspacing="0" border="0" style="margin:0.1px;padding:0;border:0;text-indent:0;border-collapse:collapse;color:${C.body};font-size:10px;font-family:${FONT}"><tbody><tr><td style="margin:0.1px;padding:0;border:0;line-height:16px">${inner}</td></tr></tbody></table>`;
 
+/* The card sizes itself to its content (~373px). No explicit widths: with a width
+   on only one panel the browser over-allocates it and starves the other, which
+   collapses the icon column to nothing. */
 const card = () => tbl(`<tr>
   ${/* centered so the column sits balanced in the panel whatever its length */ ''}
   ${panel(socialColumn(), '10px 8px', 'middle')}
