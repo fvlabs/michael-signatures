@@ -7,15 +7,22 @@
   body{width:96px;height:62px;display:grid;place-items:center;overflow:hidden}
   .mark{position:relative;width:92px;height:59px;overflow:hidden}
   .mark img{display:block;width:92px;height:59px}
-  /* agnostic: a white streak over transparency would smear across whatever sits
-     behind the GIF, so the shine becomes a colour shimmer inside the ink itself.
-     That needs the mark inline (an <img> can't be recoloured by CSS). */
+  /* agnostic: the streak has to stay inside the ink, or on a transparent bake it
+     paints white haze over whatever sits behind the GIF. So the highlight is a
+     second copy of the mark in a lighter blue, revealed through a diagonal band
+     that sweeps across via clip-path — the band can only ever show mark pixels. */
   html.t-agnostic,body.t-agnostic{background:transparent}
   body.t-agnostic .mark{display:none}
-  body.t-agnostic .markA{display:block;color:#215ff6;animation:shimmer 4s ease-in-out infinite}
-  .markA{display:none}
+  body.t-agnostic .markA{display:block}
+  .markA{display:none;position:relative;width:92px;height:59px}
   .markA svg{display:block;width:92px;height:59px}
-  @keyframes shimmer{0%,40%{color:#215ff6}62%{color:#7fa4ff}85%,100%{color:#215ff6}}
+  .markA .base{color:#215ff6}
+  .markA .hi{position:absolute;inset:0;color:#b9d0ff;
+    clip-path:polygon(-34% 0,-14% 0,-26% 100%,-46% 100%);
+    animation:band 4s ease-in-out infinite}
+  @keyframes band{
+    0%,42%{clip-path:polygon(-34% 0,-14% 0,-26% 100%,-46% 100%)}
+    88%,100%{clip-path:polygon(122% 0,142% 0,130% 100%,110% 100%)}}
   .streak{position:absolute;top:-30%;bottom:-30%;width:26px;left:-40%;
     background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.92),rgba(255,255,255,0));
     transform:skewX(-18deg);animation:sweep 4s ease-in-out infinite}
@@ -23,12 +30,17 @@
 </style></head>
 <body data-period="4000" data-w="96" data-h="62">
   <div class="mark"><img id="mk" src="slashdev-mark.svg" alt=""><span class="streak"></span></div>
-  <div class="markA"><svg viewBox="128 262 746 480" xmlns="http://www.w3.org/2000/svg">
+  <div class="markA"><span class="base"><svg viewBox="128 262 746 480" xmlns="http://www.w3.org/2000/svg">
     <path d="M466.7 708.3H412.2L416 685.9C401.3 701.7 382.5 710.5 360.7 710.5C312.8 710.5 287.3 675.2 296.3 622.6C305.2 570.6 342.3 536.2 389.2 536.2C411.6 536.2 428 545 437.3 560.8L452.1 474.4H506.6L466.7 708.3ZM426.6 623.8C431.1 597.6 419 579.7 396.3 579.7C373.6 579.7 355.4 597.7 350.6 623.8C346.4 650 358.4 668.2 381.1 668.2C403.9 668.3 422.1 650 426.6 623.8Z" fill="currentColor"/>
     <path d="M674.8 638H555.4C557.3 658.2 569.9 669.5 590 669.5C604.8 669.5 620.3 663.5 633.6 652.2L657.5 680.2C636.9 699.1 609.5 710.1 578.3 710.1C522.8 710.1 494.1 675.4 503 623.7C512 571.1 553.9 536.4 606.5 536.4C666.3 536.5 689.2 575.9 674.8 638ZM627.5 608.7C631.1 587.9 620.1 574.3 600.6 574.3C581.7 574.3 566.4 588.2 559.4 608.7H627.5Z" fill="currentColor"/>
     <path d="M715.6 708.3L680.7 538.4H736.8L752.8 658.5L810.2 538.4H864.4L771.3 708.3H715.6Z" fill="currentColor"/>
     <path d="M453.9 270H378.5L137 732.4H212.4L453.9 270Z" fill="currentColor"/>
-  </svg></div>
+  </svg></span><span class="hi"><svg viewBox="128 262 746 480" xmlns="http://www.w3.org/2000/svg">
+    <path d="M466.7 708.3H412.2L416 685.9C401.3 701.7 382.5 710.5 360.7 710.5C312.8 710.5 287.3 675.2 296.3 622.6C305.2 570.6 342.3 536.2 389.2 536.2C411.6 536.2 428 545 437.3 560.8L452.1 474.4H506.6L466.7 708.3ZM426.6 623.8C431.1 597.6 419 579.7 396.3 579.7C373.6 579.7 355.4 597.7 350.6 623.8C346.4 650 358.4 668.2 381.1 668.2C403.9 668.3 422.1 650 426.6 623.8Z" fill="currentColor"/>
+    <path d="M674.8 638H555.4C557.3 658.2 569.9 669.5 590 669.5C604.8 669.5 620.3 663.5 633.6 652.2L657.5 680.2C636.9 699.1 609.5 710.1 578.3 710.1C522.8 710.1 494.1 675.4 503 623.7C512 571.1 553.9 536.4 606.5 536.4C666.3 536.5 689.2 575.9 674.8 638ZM627.5 608.7C631.1 587.9 620.1 574.3 600.6 574.3C581.7 574.3 566.4 588.2 559.4 608.7H627.5Z" fill="currentColor"/>
+    <path d="M715.6 708.3L680.7 538.4H736.8L752.8 658.5L810.2 538.4H864.4L771.3 708.3H715.6Z" fill="currentColor"/>
+    <path d="M453.9 270H378.5L137 732.4H212.4L453.9 270Z" fill="currentColor"/>
+  </svg></span></div>
 <script>
   var t=(location.search.match(/theme=(\w+)/)||[])[1]||'light';
   if (t!=='light'){document.documentElement.classList.add('t-'+t);document.body.classList.add('t-'+t);}
