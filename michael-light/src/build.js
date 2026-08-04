@@ -53,20 +53,24 @@ const THEMES = {
   light: {
     label: 'Current — light card',
     bg: '#fffffe', ink: '#09090b', body: '#3f3f46', muted: '#71717a', border: '#e4e4e7',
-    suffix: '', icons: 'vendor', awards: 'assets/awards-2026.png',
-    note: 'What is live today. Gmail mobile dark mode inverts the card to dark but cannot touch the images, so the logo, badge, icons and awards strip stay light and read as white boxes.',
+    /* transparent assets, so nothing carries a white plate into a darkened card.
+       The wordmark is the blue -a bake, not the black -t one: black disappears on
+       dark, and -t also keeps the white streak overlay, which smears across
+       whatever sits behind a transparent GIF. */
+    suffix: '-t', logo: 'assets/logo-shine-a.gif', awards: 'assets/awards-2026-t.png',
+    note: 'What is live today. Gmail mobile dark mode inverts the card to dark but cannot touch the images, so the logo, badge and awards strip stay light and read as white boxes. The social icons no longer do — they are blue on transparency now.',
   },
   transparent: {
     label: 'Transparent images',
     bg: '#fffffe', ink: '#09090b', body: '#3f3f46', muted: '#71717a', border: '#e4e4e7',
-    suffix: '-t', icons: 'vendor', awards: 'assets/awards-2026-t.png',
-    note: 'Every GIF of ours re-baked with no background, and Gmail&rsquo;s proxy does preserve the alpha &mdash; so the portrait and badge come out right. Two things still break: the black <code>dev</code> wordmark disappears against dark, and the three reference icons keep their boxes because the white plate is <b>inside those files</b> &mdash; every frame after the first is 77% opaque white with only the outer corners transparent. Cost: the portrait goes from 162 KB to 1.2 MB, because alpha defeats GIF frame-delta compression.',
+    suffix: '-t', awards: 'assets/awards-2026-t.png',
+    note: 'Every GIF of ours re-baked with no background, and Gmail&rsquo;s proxy does preserve the alpha &mdash; so the portrait and badge come out right. Two things still break: the black <code>dev</code> wordmark disappears against dark, &mdash; the icons are fixed for good now, recoloured to blue on transparency after we found the white plate was <b>inside those files</b> (77% opaque white per frame, corners aside). Cost: the portrait goes from 162 KB to 1.2 MB, because alpha defeats GIF frame-delta compression.',
   },
   dark: {
     label: 'Dark card',
     bg: '#070a14', ink: '#ffffff', body: '#c3cbdc', muted: '#727b91', border: '#1e2637',
-    suffix: '-d', icons: 'dark', awards: 'assets/awards-2026.png',
-    note: 'Card and assets both baked dark. Gmail has nothing to invert, so this is the one that renders identically in light and dark mode. Two consequences: the reference icons are black-on-transparent and disappear on dark, so this uses our own glyph set; and the awards strip is third-party black-on-white artwork, so it stays a white card.',
+    suffix: '-d', awards: 'assets/awards-2026.png',
+    note: 'Card and assets both baked dark. Gmail has nothing to invert, so this is the one that renders identically in light and dark mode. One consequence: the awards strip is third-party black-on-white artwork, so it stays a white card.',
   },
   agnostic: {
     label: 'Theme-agnostic',
@@ -76,9 +80,9 @@ const THEMES = {
        on white and on dark: brand blue glyph mass with white knockouts, blue
        wordmark, and the portrait's gradient ring as the outer edge. */
     bg: null, ink: '#09090b', body: '#3f3f46', muted: '#71717a', border: '#a1a1aa',
-    suffix: '-t', icons: 'agn', awards: 'assets/awards-2026-t.png',
+    suffix: '-t', awards: 'assets/awards-2026-t.png',
     logo: 'assets/logo-shine-a.gif',
-    note: 'The combination that actually survives. No background is declared, so the client&rsquo;s own surface shows through and there is nothing for the inverter to fight. Text is dark and lets Gmail flip it. Images are transparent with colours that read either way &mdash; brand-blue glyphs, blue wordmark, the portrait ring as its outer edge. Two honest limits: the awards strip still carries the Clutch widget&rsquo;s own white card (47% of that artwork is opaque white), and the shine on the mark had to become a colour shimmer, because a white streak over transparency smears onto whatever is behind it.',
+    note: 'The combination that actually survives. No background is declared, so the client&rsquo;s own surface shows through and there is nothing for the inverter to fight. Text is dark and lets Gmail flip it. Images are transparent with colours that read either way &mdash; brand-blue glyphs and wordmark. Two honest limits: the awards strip still carries the Clutch widget&rsquo;s own white card (47% of that artwork is opaque white), and the shine on the mark had to become a colour shimmer, because a white streak over transparency smears onto whatever is behind it.',
   },
 };
 let T = THEMES.light;   // set per render
@@ -89,21 +93,18 @@ const PHONE_US = { href: 'tel:+19292779018', label: '+1 (929) 277-9018' };
 
 /* Instagram is the company account; the ?igsh= share tracker from the app link is
    stripped — it identifies whoever copied the link. Nobody has a Facebook account
-   to point at. Icon dimensions differ per set: the reference GIFs are 140x128
-   (web 133x128) shown at width 24 exactly as the original markup did; ours are
-   square. */
-const ICON_DIMS = {
-  vendor: { web: [24, 23], other: [24, 22] },
-  dark: { web: [24, 24], other: [24, 24] },
-  agn: { web: [24, 24], other: [24, 24] },
-};
-const ICON_PREFIX = { vendor: 'ic-vendor-', dark: 'ic-dark-', agn: 'ic-agn-' };
+   to point at.
+
+   ic-blue-* are the reference glyphs recoloured to slashdev blue on transparency
+   (src/recolor-icons.py). The originals had a white plate baked into the pixels —
+   ~77% opaque white per frame — which is why they showed as white boxes wherever
+   the client darkened the card. Blue on transparency reads on white and on dark,
+   so every theme now shares one icon set. Dimensions follow the source artwork:
+   133x128 for web, 140x128 for the rest, shown at width 24 as the original did. */
 function iconAsset(key) {
-  const set = T.icons;
-  const [w, h] = ICON_DIMS[set][key === 'web' ? 'web' : 'other'];
-  const src = `assets/${ICON_PREFIX[set]}${key}.gif`;
+  const [w, h] = key === 'web' ? [24, 23] : [24, 22];
   const alt = { web: 'slashdev.io', linkedin: 'LinkedIn', instagram: 'Instagram' }[key];
-  return { src, w, h, alt };
+  return { src: `assets/ic-blue-${key}.gif`, w, h, alt };
 }
 
 const PEOPLE = [
@@ -135,6 +136,23 @@ const PEOPLE = [
     socials: [
       { key: 'web', href: SITE },
       { key: 'linkedin', href: 'https://www.linkedin.com/in/kevin-de-farias/' },
+      { key: 'instagram', href: INSTAGRAM },
+    ],
+  },
+  {
+    /* Henrique's email follows the michael@ / kevin@ pattern — INFERRED, not
+       confirmed. No mobile and no LinkedIn yet, so he lists the office number and
+       two icons. His photo is a casual outdoor selfie rather than a studio
+       headshot, so his portrait doesn't sit alongside the other two cleanly. */
+    name: 'Henrique Bovareto',
+    role: 'Engineer',
+    company: 'Slashdev',
+    slug: 'henrique',
+    phones: [PHONE_US],
+    email: { href: 'mailto:henrique@slashdev.io', label: 'henrique@slashdev.io' },
+    location: 'Seattle, WA &middot; Stockholm, SE',
+    socials: [
+      { key: 'web', href: SITE },
       { key: 'instagram', href: INSTAGRAM },
     ],
   },
