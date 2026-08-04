@@ -54,8 +54,6 @@ const PHONE_US = { href: 'tel:+19292779018', label: '+1 (929) 277-9018' };
 
 const PEOPLE = [
   {
-    /* index.html is Michael's — that URL is already out with him, keep it. */
-    files: ['index.html', 'L1-two-panel.html'],
     name: 'Michael Ballard',
     role: 'Founder &amp; CEO',
     company: 'Slashdev',
@@ -71,7 +69,6 @@ const PEOPLE = [
        him: the US number is the same one Michael lists, and the location line says
        Seattle/Stockholm while his mobile is +55. No LinkedIn URL yet, so his icon
        column is web + Instagram until he sends one. */
-    files: ['kevin.html'],
     name: 'Kevin Farias',
     role: 'Tech Lead',
     company: 'Slashdev',
@@ -163,49 +160,54 @@ const signature = (p) => wrap(tbl([
 ].join('')));
 
 /* ---------- page ---------- */
-function page(p) {
-  const plain = p.name.replace(/&amp;/g, '&');
-  return `<!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><title>${plain} &mdash; email signature</title>
-<style>body{background:#fff;margin:0;padding:40px 24px 80px;font-family:${FONT};color:#18181b}
-h1{font-size:24px;max-width:860px;margin:0 auto 10px}
-p{max-width:860px;margin:0 auto 12px;color:#52525b;font-size:13px;line-height:1.6}
-.box{max-width:860px;margin:18px auto 0;border:1px dashed #d4d4d8;padding:26px;border-radius:10px}
-.who{max-width:860px;margin:0 auto 12px;font-size:13px}
-.who a{color:${C.accent}}
-code{background:#f4f4f5;padding:1px 5px;border-radius:4px}</style></head>
-<body>
-<h1>${plain} &mdash; email signature</h1>
-<p class="who">${PEOPLE.map(o => o === p ? `<b>${o.name.replace(/&amp;/g, '&')}</b>`
-    : `<a href="${o.files[0]}">${o.name.replace(/&amp;/g, '&')}</a>`).join(' &nbsp;&middot;&nbsp; ')}</p>
-<p>Email-safe: table markup with inline styles, real clickable <code>tel:</code> / <code>mailto:</code> / profile links, and every animation baked into a looping GIF (email clients can&rsquo;t run CSS, but they all play GIFs). Backgrounds are <code>#fffffe</code> rather than pure white so Gmail&rsquo;s mobile dark mode doesn&rsquo;t invert the card and leave the images mismatched.</p>
-<p>To install: copy everything between the <code>SIGNATURE</code> comments below and paste it into Gmail &rarr; Settings &rarr; Signature. Image URLs are already public, so it works as-is.</p>
+/* One page holds every signature, each in its own labelled copy block. All the
+   filenames below serve that same page, so URLs already shared keep working. */
+const FILES = ['index.html', 'L1-two-panel.html', 'kevin.html'];
+const plainName = (p) => p.name.replace(/&amp;/g, '&');
+
+function section(p) {
+  const slug = plainName(p).split(' ')[0].toUpperCase();
+  return `<h2>${plainName(p)} <span class="role">${p.role.replace(/&amp;/g, '&')}</span></h2>
 <div class="box">
 
-<!-- ===== SIGNATURE — COPY FROM HERE ===== -->
+<!-- ===== SIGNATURE (${slug}) — COPY FROM HERE ===== -->
 ${absolutize(signature(p))}
-<!-- ===== END ===== -->
+<!-- ===== END (${slug}) ===== -->
 
-</div>
+</div>`;
+}
+
+function page() {
+  return `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Slashdev email signatures</title>
+<style>body{background:#fff;margin:0;padding:40px 24px 90px;font-family:${FONT};color:#18181b}
+h1{font-size:24px;max-width:860px;margin:0 auto 10px}
+h2{font-size:19px;max-width:860px;margin:52px auto 0;display:flex;align-items:baseline;gap:10px}
+.role{font-size:13px;font-weight:400;color:#71717a}
+p{max-width:860px;margin:0 auto 12px;color:#52525b;font-size:13px;line-height:1.6}
+.box{max-width:860px;margin:14px auto 0;border:1px dashed #d4d4d8;padding:26px;border-radius:10px}
+code{background:#f4f4f5;padding:1px 5px;border-radius:4px}</style></head>
+<body>
+<h1>Slashdev email signatures</h1>
+<p>Email-safe: table markup with inline styles, real clickable <code>tel:</code> / <code>mailto:</code> / profile links, and every animation baked into a looping GIF (email clients can&rsquo;t run CSS, but they all play GIFs). Backgrounds are <code>#fffffe</code> rather than pure white so Gmail&rsquo;s mobile dark mode doesn&rsquo;t invert the card and leave the images mismatched.</p>
+<p>To install: find your name below and copy everything between its <code>SIGNATURE</code> comments into Gmail &rarr; Settings &rarr; Signature. Image URLs are already public, so it works as-is.</p>
+${PEOPLE.map(section).join('\n')}
 </body></html>
 `;
 }
 
-const LOCAL = process.argv.includes('--local');
-const P = path.join(OUT, 'preview');
-if (LOCAL) fs.mkdirSync(P, { recursive: true });
-
-for (const person of PEOPLE) {
-  const html = page(person);
-  for (const f of person.files) {
-    fs.writeFileSync(path.join(OUT, f), html);
-    console.log('wrote', f, `(${person.name})`);
-  }
-  /* preview/ carries relative asset paths so the signature can be reviewed on
-     disk before the GIFs are live on Pages. preview/ is gitignored. */
-  if (LOCAL) {
-    const local = html.split(ASSET_BASE + 'assets/').join('../assets/');
-    for (const f of person.files) fs.writeFileSync(path.join(P, f), local);
-  }
+const html = page();
+for (const f of FILES) {
+  fs.writeFileSync(path.join(OUT, f), html);
+  console.log('wrote', f);
 }
-if (LOCAL) console.log('wrote preview/ (relative asset paths)');
+
+/* preview/ carries relative asset paths so the signatures can be reviewed on disk
+   before the GIFs are live on Pages. preview/ is gitignored. */
+if (process.argv.includes('--local')) {
+  const P = path.join(OUT, 'preview');
+  fs.mkdirSync(P, { recursive: true });
+  const local = html.split(ASSET_BASE + 'assets/').join('../assets/');
+  for (const f of FILES) fs.writeFileSync(path.join(P, f), local);
+  console.log('wrote preview/ (relative asset paths)');
+}
