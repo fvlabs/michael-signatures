@@ -25,6 +25,7 @@ const jobs = [
   { file: 'social.html', out: 'ic-facebook.gif',  fps: 12, scale: 3, query: '?icon=facebook&slot=4' },
   { file: 'badge.html',  out: 'badge-verified.gif', fps: 12, scale: 3 },
   { file: 'avatar.html', out: 'avatar-ring.gif', fps: 16 },
+  { file: 'avatar.html', out: 'avatar-ring-kevin.gif', fps: 16, query: '?photo=kevin.png' },
   { file: 'logo.html',   out: 'logo-shine.gif',  fps: 12 },
 ];
 
@@ -44,7 +45,9 @@ const jobs = [
     const ctx = await b.newContext({ viewport: { width: meta.w, height: meta.h }, deviceScaleFactor: dsf });
     const pg = await ctx.newPage();
     await pg.goto(url, { waitUntil: 'networkidle' });
-    await pg.waitForTimeout(400); // fonts/images settle
+    // the photo can be swapped in by script, so wait for real decode, not just idle
+    await pg.waitForFunction(() => [...document.images].every(i => i.complete && i.naturalWidth > 0));
+    await pg.waitForTimeout(400); // fonts settle
 
     const frames = Math.round(meta.period / 1000 * j.fps);
     const dir = path.join(TMP, j.out.replace(/\.gif$/, ''));
