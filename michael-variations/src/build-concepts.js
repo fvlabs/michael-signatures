@@ -224,8 +224,8 @@ const legacy = `
 <p class="sect-sub">A separate direction: white bordered panels with an animated social column, verified name and ring portrait &mdash; built in <code>michael-light/</code>, animations baked on white instead of <code>#070a14</code>.</p>
 <div class="grid">
   <div class="card"><div class="card-head"><span class="num">light</span><h2>Light panel signatures</h2><a class="open" href="michael-light/index.html" target="_blank">open&nbsp;&#8599;</a></div>
-    <p>Four layouts &mdash; Two Panel, Single Card, Borderless, Compact &mdash; all email-safe with baked GIFs.</p>
-    <div class="frame"><iframe src="michael-light/L1-two-panel.html" loading="lazy" title="Light panel" style="height:330px"></iframe></div></div>
+    <p>The signature Michael picked &mdash; two-panel card plus the awards/reviews strip, email-safe with baked GIFs.</p>
+    <div class="frame"><iframe src="michael-light/index.html" loading="lazy" title="Light panel" style="height:620px"></iframe></div></div>
 </div>
 
 <h2 class="sect">Other experiments</h2>
