@@ -23,6 +23,25 @@
   @keyframes band{
     0%,42%{clip-path:polygon(-34% 0,-14% 0,-26% 100%,-46% 100%)}
     88%,100%{clip-path:polygon(122% 0,142% 0,130% 100%,110% 100%)}}
+
+  /* black: the original ink, transparent background, white streak — the highlight
+     reads exactly as it used to. On a dark surface the letters go to ~1.1:1
+     contrast and effectively disappear, leaving the blue slash on its own. */
+  html.t-black,body.t-black,html.t-blackout,body.t-blackout{background:transparent}
+  body.t-black .mark,body.t-blackout .mark{display:none}
+  body.t-black .markA,body.t-blackout .markA{display:block}
+  body.t-black .base,body.t-blackout .base{color:#09090b}
+  body.t-black .hi{color:#ffffff}
+  /* blackout sweeps brand blue rather than white: a white sweep merges into the
+     white outline on a dark surface and the letters read as a blob */
+  body.t-blackout .hi{color:#215ff6}
+  /* blackout: same black ink with a thin light outline. Invisible against white,
+     but it separates the letters from a dark surface. paint-order keeps the fill
+     on top so the stroke only shows outside the glyph. */
+  body.t-blackout .markA svg path{stroke:#eef2ff;stroke-width:26;paint-order:stroke}
+  /* the slash is brand blue in every variant */
+  body.t-black .markA svg path:last-of-type,
+  body.t-blackout .markA svg path:last-of-type{color:#215ff6}
   .streak{position:absolute;top:-30%;bottom:-30%;width:26px;left:-40%;
     background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.92),rgba(255,255,255,0));
     transform:skewX(-18deg);animation:sweep 4s ease-in-out infinite}
