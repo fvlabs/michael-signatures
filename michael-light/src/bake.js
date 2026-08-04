@@ -27,6 +27,28 @@ const jobs = [
   { file: 'avatar.html', out: 'avatar-ring.gif', fps: 16 },
   { file: 'avatar.html', out: 'avatar-ring-kevin.gif', fps: 16, query: '?photo=kevin.png' },
   { file: 'logo.html',   out: 'logo-shine.gif',  fps: 12 },
+
+  /* ---- dark-mode test variants (see src/build.js THEMES) ----
+     -d = baked on #070a14, -t = baked on transparency. */
+  { file: 'social.html', out: 'ic-dark-web.gif',       fps: 12, scale: 3, query: '?icon=web&slot=1&theme=dark' },
+  { file: 'social.html', out: 'ic-dark-linkedin.gif',  fps: 12, scale: 3, query: '?icon=linkedin&slot=2&theme=dark' },
+  { file: 'social.html', out: 'ic-dark-instagram.gif', fps: 12, scale: 3, query: '?icon=instagram&slot=3&theme=dark' },
+  { file: 'badge.html',  out: 'badge-verified-d.gif',  fps: 12, scale: 3, query: '?theme=dark' },
+  { file: 'avatar.html', out: 'avatar-ring-d.gif',       fps: 16, query: '?theme=dark' },
+  { file: 'avatar.html', out: 'avatar-ring-kevin-d.gif', fps: 16, query: '?photo=kevin.png&theme=dark' },
+  { file: 'logo.html',   out: 'logo-shine-d.gif',      fps: 12, query: '?theme=dark' },
+
+  { file: 'badge.html',  out: 'badge-verified-t.gif',  fps: 12, scale: 3, query: '?theme=none', alpha: true },
+  { file: 'avatar.html', out: 'avatar-ring-t.gif',       fps: 16, query: '?theme=none', alpha: true },
+  { file: 'avatar.html', out: 'avatar-ring-kevin-t.gif', fps: 16, query: '?photo=kevin.png&theme=none', alpha: true },
+  { file: 'logo.html',   out: 'logo-shine-t.gif',      fps: 12, query: '?theme=none', alpha: true },
+
+  /* theme-agnostic (-a): transparent, and every colour chosen to read on white
+     and on dark. This is the combination that survives Gmail's inverter. */
+  { file: 'social.html', out: 'ic-agn-web.gif',       fps: 12, scale: 3, query: '?icon=web&slot=1&theme=agnostic', alpha: true },
+  { file: 'social.html', out: 'ic-agn-linkedin.gif',  fps: 12, scale: 3, query: '?icon=linkedin&slot=2&theme=agnostic', alpha: true },
+  { file: 'social.html', out: 'ic-agn-instagram.gif', fps: 12, scale: 3, query: '?icon=instagram&slot=3&theme=agnostic', alpha: true },
+  { file: 'logo.html',   out: 'logo-shine-a.gif',     fps: 12, query: '?theme=agnostic', alpha: true },
 ];
 
 (async () => {
@@ -59,15 +81,19 @@ const jobs = [
       await pg.evaluate((t) => {
         document.getAnimations({ subtree: true }).forEach(a => { a.pause(); a.currentTime = t; });
       }, t);
-      await pg.screenshot({ path: path.join(dir, `f${String(i).padStart(4, '0')}.png`) });
+      await pg.screenshot({ path: path.join(dir, `f${String(i).padStart(4, '0')}.png`), omitBackground: !!j.alpha });
     }
     await ctx.close();
 
     // keep the retina frames: emit at 2x and display at 1x in the signature
     const out = path.join(OUT, j.out);
+    /* GIF alpha is 1-bit, so transparent bakes reserve a palette slot and skip
+       dithering — dithering an alpha edge produces speckle. */
+    const filter = j.alpha
+      ? 'split[s0][s1];[s0]palettegen=max_colors=200:stats_mode=full:reserve_transparent=1[p];[s1][p]paletteuse=dither=none:alpha_threshold=128'
+      : 'split[s0][s1];[s0]palettegen=max_colors=200:stats_mode=full[p];[s1][p]paletteuse=dither=sierra2_4a';
     execSync(`ffmpeg -hide_banner -loglevel error -y -framerate ${j.fps} -i ${dir}/f%04d.png ` +
-      `-vf "split[s0][s1];[s0]palettegen=max_colors=200:stats_mode=full[p];[s1][p]paletteuse=dither=sierra2_4a" ` +
-      `-loop 0 "${out}"`);
+      `-vf "${filter}" -loop 0 "${out}"`);
     console.log(`${j.out}: ${frames} frames, ${meta.w * dsf}x${meta.h * dsf} -> ${Math.round(fs.statSync(out).size / 1024)} KB`);
   }
   await b.close();

@@ -2,6 +2,8 @@
   /* circular portrait on white with a rotating brand-gradient ring.
      The photo carries a white border, so only a thin arc of the ring shows. */
   html,body{margin:0;padding:0;background:#ffffff}
+  html.t-dark,body.t-dark{background:#070a14}
+  html.t-none,body.t-none{background:transparent}
   body{width:132px;height:132px;display:grid;place-items:center;overflow:hidden}
   .photo{width:132px;height:132px;position:relative;display:grid;place-items:center}
   .ring{position:absolute;inset:0;border-radius:50%;
@@ -9,11 +11,16 @@
     animation:rot 2.5s linear infinite}
   @keyframes rot{to{transform:rotate(360deg)}}
   img{position:relative;width:124px;height:124px;border-radius:50%;object-fit:cover;border:4px solid #fff}
+  body.t-dark img{border-color:#070a14}
+  /* on transparency the ring is the outer edge, so no plate colour to match */
+  body.t-none img{border-color:transparent}
 </style></head>
 <body data-period="2500" data-w="132" data-h="132">
   <div class="photo"><span class="ring"></span><img id="p" src="michael.png" alt=""></div>
   <script>
     var q=(location.search.match(/photo=([\w.\-]+)/)||[])[1];
     if (q) document.getElementById('p').src=q;
+    var t=(location.search.match(/theme=(\w+)/)||[])[1]||'light';
+    if (t!=='light'){document.documentElement.classList.add('t-'+t);document.body.classList.add('t-'+t);}
   </script>
 </body></html>

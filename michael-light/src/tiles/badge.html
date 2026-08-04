@@ -2,6 +2,8 @@
   /* verified tick — same calm 6s loop as the social set: one pop with a glint,
      then it holds. Starts and ends at rest so the GIF loops invisibly. */
   html,body{margin:0;padding:0;background:#ffffff}
+  html.t-dark,body.t-dark{background:#070a14}
+  html.t-none,body.t-none{background:transparent}
   body{width:16px;height:16px;display:grid;place-items:center;overflow:hidden}
   .disc{position:relative;width:16px;height:16px;border-radius:50%;background:#215ff6;overflow:hidden;
     animation:pop 6s cubic-bezier(.34,1.4,.5,1) infinite;transform-origin:50% 50%}
@@ -14,4 +16,8 @@
 </style></head>
 <body data-period="6000" data-w="16" data-h="16">
   <span class="disc"><span class="tick"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span class="glint"></span></span>
+<script>
+  var t=(location.search.match(/theme=(\w+)/)||[])[1]||'light';
+  if (t!=='light'){document.documentElement.classList.add('t-'+t);document.body.classList.add('t-'+t);}
+</script>
 </body></html>
