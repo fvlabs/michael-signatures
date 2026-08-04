@@ -4,16 +4,24 @@
   html,body{margin:0;padding:0;background:#ffffff}
   html.t-dark,body.t-dark{background:#070a14}
   html.t-none,body.t-none{background:transparent}
+  html.t-agnostic,body.t-agnostic{background:transparent}
   body{width:132px;height:132px;display:grid;place-items:center;overflow:hidden}
   .photo{width:132px;height:132px;position:relative;display:grid;place-items:center}
   .ring{position:absolute;inset:0;border-radius:50%;
     background:conic-gradient(from 0deg,#215ff6,#7b61ff,#00d1ff,rgba(33,95,246,.10) 62%,#215ff6);
     animation:rot 2.5s linear infinite}
+  /* GIF alpha is 1-bit — it cannot fade. On a transparent bake the gradient's
+     10%-opacity stop falls under the 50% threshold and vanishes, which chopped
+     the ring into a floating arc. So on transparency every stop stays fully
+     opaque and the "gap" is a dark blue segment instead of a fade. */
+  body.t-none .ring,body.t-agnostic .ring{
+    background:conic-gradient(from 0deg,#215ff6,#7b61ff,#00d1ff,#0b2a6b 74%,#215ff6)}
   @keyframes rot{to{transform:rotate(360deg)}}
   img{position:relative;width:124px;height:124px;border-radius:50%;object-fit:cover;border:4px solid #fff}
   body.t-dark img{border-color:#070a14}
-  /* on transparency the ring is the outer edge, so no plate colour to match */
-  body.t-none img{border-color:transparent}
+  /* on transparency the ring is the outer edge, so there is no plate colour to
+     match — a transparent border lets the ring show through as a wider band */
+  body.t-none img,body.t-agnostic img{border-color:transparent}
 </style></head>
 <body data-period="2500" data-w="132" data-h="132">
   <div class="photo"><span class="ring"></span><img id="p" src="michael.png" alt=""></div>

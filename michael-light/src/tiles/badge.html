@@ -4,6 +4,10 @@
   html,body{margin:0;padding:0;background:#ffffff}
   html.t-dark,body.t-dark{background:#070a14}
   html.t-none,body.t-none{background:transparent}
+  html.t-agnostic,body.t-agnostic{background:transparent}
+  /* on a transparent bake the blurred, semi-transparent glint gets thresholded to
+     a hard speckled edge, so it becomes an opaque lighter-blue sweep instead */
+  body.t-none .glint,body.t-agnostic .glint{background:#7fa4ff;filter:none;opacity:1}
   body{width:16px;height:16px;display:grid;place-items:center;overflow:hidden}
   .disc{position:relative;width:16px;height:16px;border-radius:50%;background:#215ff6;overflow:hidden;
     animation:pop 6s cubic-bezier(.34,1.4,.5,1) infinite;transform-origin:50% 50%}

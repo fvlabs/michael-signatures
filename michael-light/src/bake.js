@@ -51,10 +51,15 @@ const jobs = [
   { file: 'logo.html',   out: 'logo-shine-a.gif',     fps: 12, query: '?theme=agnostic', alpha: true },
 ];
 
+/* optional filter: `node src/bake.js -t` bakes only jobs whose output matches */
+const only = process.argv.slice(2).filter(a => !a.startsWith('--'));
+const selected = only.length ? jobs.filter(j => only.some(o => j.out.includes(o))) : jobs;
+
 (async () => {
   fs.mkdirSync(OUT, { recursive: true });
+  if (only.length) console.log(`baking ${selected.length}/${jobs.length} jobs matching ${only.join(', ')}`);
   const b = await chromium.launch({ channel: 'chrome', headless: true, args: ['--force-color-profile=srgb', '--hide-scrollbars'] });
-  for (const j of jobs) {
+  for (const j of selected) {
     const url = 'file://' + path.join(T, j.file) + (j.query || '');
     const probe = await b.newPage();
     await probe.goto(url);
