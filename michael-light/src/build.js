@@ -111,7 +111,7 @@ const PEOPLE = [
     name: 'Michael Ballard',
     role: 'Founder &amp; CEO',
     company: 'Slashdev',
-    photo: '',                    // avatar-ring.gif
+    slug: 'michael',
     phones: [PHONE_US, { href: 'tel:+46703688988', label: '+46 70 368 8988' }],
     email: { href: 'mailto:michael@slashdev.io', label: 'michael@slashdev.io' },
     location: 'Seattle, WA &middot; Stockholm, SE',
@@ -128,7 +128,7 @@ const PEOPLE = [
     name: 'Kevin Farias',
     role: 'Tech Lead',
     company: 'Slashdev',
-    photo: '-kevin',              // avatar-ring-kevin.gif
+    slug: 'kevin',
     phones: [PHONE_US, { href: 'tel:+5554999368153', label: '+55 54 99936-8153' }],
     email: { href: 'mailto:kevin@slashdev.io', label: 'kevin@slashdev.io' },
     location: 'Seattle, WA &middot; Stockholm, SE',
@@ -170,7 +170,12 @@ const panel = (inner, pad = '15px', valign = 'top') =>
   `<td${bgAttr()} valign="${valign}" align="left" style="margin:0.1px;padding:${pad};${bgCss()}border:1px solid ${T.border};border-collapse:separate;border-radius:6px">${inner}</td>`;
 
 const logo = () => img(T.logo || `assets/logo-shine${T.suffix}.gif`, 96, 62, 'slashdev');
-const avatar = (p) => img(`assets/avatar-ring${p.photo}${T.suffix}.gif`, 132, 132, p.name, 'border-radius:200px');
+/* Plain circular portrait, one file for every theme. PNG alpha is 8-bit so the
+   edge is properly antialiased — unlike the 1-bit GIF alpha that chopped the old
+   rotating ring into an arc. The ring is gone: it was carried over from the
+   aurora concepts, never asked for, and read as unprofessional. border-radius
+   stays as a belt-and-braces measure for clients that ignore alpha. */
+const avatar = (p) => img(`assets/avatar-${p.slug}-round.png`, 132, 132, p.name, 'border-radius:200px');
 const badge = () => img(`assets/badge-verified${T.suffix}.gif`, 16, 16, 'verified');
 
 /* name + animated verified tick */

@@ -14,6 +14,10 @@ const TMP = '/tmp/light-frames';
 
 /* scale = deviceScaleFactor: the GIF is baked at scale× and displayed at 1×,
    so the glyphs stay crisp on high-DPI mail clients. */
+/* No avatar jobs: the portrait is a static circular PNG generated straight from
+   the source photo (see the round_avatar step in git history), because the
+   rotating ring is gone. avatar.html and the baked ring GIFs are kept — the GIFs
+   because signatures already pasted into Gmail still reference them. */
 const jobs = [
   /* slot = position in the cascade. Both icon sets share web (1) and linkedin (2);
      x/github and instagram/facebook are the interchangeable 3rd and 4th. */
@@ -24,8 +28,6 @@ const jobs = [
   { file: 'social.html', out: 'ic-instagram.gif', fps: 12, scale: 3, query: '?icon=instagram&slot=3' },
   { file: 'social.html', out: 'ic-facebook.gif',  fps: 12, scale: 3, query: '?icon=facebook&slot=4' },
   { file: 'badge.html',  out: 'badge-verified.gif', fps: 12, scale: 3 },
-  { file: 'avatar.html', out: 'avatar-ring.gif', fps: 16 },
-  { file: 'avatar.html', out: 'avatar-ring-kevin.gif', fps: 16, query: '?photo=kevin.png' },
   { file: 'logo.html',   out: 'logo-shine.gif',  fps: 12 },
 
   /* ---- dark-mode test variants (see src/build.js THEMES) ----
@@ -34,13 +36,9 @@ const jobs = [
   { file: 'social.html', out: 'ic-dark-linkedin.gif',  fps: 12, scale: 3, query: '?icon=linkedin&slot=2&theme=dark' },
   { file: 'social.html', out: 'ic-dark-instagram.gif', fps: 12, scale: 3, query: '?icon=instagram&slot=3&theme=dark' },
   { file: 'badge.html',  out: 'badge-verified-d.gif',  fps: 12, scale: 3, query: '?theme=dark' },
-  { file: 'avatar.html', out: 'avatar-ring-d.gif',       fps: 16, query: '?theme=dark' },
-  { file: 'avatar.html', out: 'avatar-ring-kevin-d.gif', fps: 16, query: '?photo=kevin.png&theme=dark' },
   { file: 'logo.html',   out: 'logo-shine-d.gif',      fps: 12, query: '?theme=dark' },
 
   { file: 'badge.html',  out: 'badge-verified-t.gif',  fps: 12, scale: 3, query: '?theme=none', alpha: true },
-  { file: 'avatar.html', out: 'avatar-ring-t.gif',       fps: 16, query: '?theme=none', alpha: true },
-  { file: 'avatar.html', out: 'avatar-ring-kevin-t.gif', fps: 16, query: '?photo=kevin.png&theme=none', alpha: true },
   { file: 'logo.html',   out: 'logo-shine-t.gif',      fps: 12, query: '?theme=none', alpha: true },
 
   /* theme-agnostic (-a): transparent, and every colour chosen to read on white
