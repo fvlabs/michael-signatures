@@ -26,8 +26,6 @@ SS = 4                # mask supersampling
 PEOPLE = {
     'michael': (os.path.join(TILES, 'michael.png'), None),
     'kevin': (os.path.join(TILES, 'kevin.png'), None),
-    # close selfie, so the crop pulls right back to reach the shoulders
-    'henrique': (os.path.join(TILES, 'henrique.jpeg'), (175, 150, 1925, 1900)),
 }
 
 

@@ -139,23 +139,6 @@ const PEOPLE = [
       { key: 'instagram', href: INSTAGRAM },
     ],
   },
-  {
-    /* Henrique's email follows the michael@ / kevin@ pattern — INFERRED, not
-       confirmed. No mobile and no LinkedIn yet, so he lists the office number and
-       two icons. His photo is a casual outdoor selfie rather than a studio
-       headshot, so his portrait doesn't sit alongside the other two cleanly. */
-    name: 'Henrique Bovareto',
-    role: 'Engineer',
-    company: 'Slashdev',
-    slug: 'henrique',
-    phones: [PHONE_US],
-    email: { href: 'mailto:henrique@slashdev.io', label: 'henrique@slashdev.io' },
-    location: 'Seattle, WA &middot; Stockholm, SE',
-    socials: [
-      { key: 'web', href: SITE },
-      { key: 'instagram', href: INSTAGRAM },
-    ],
-  },
 ];
 
 /* Awards strip: 1200x491 asset shown at 600x246 — deliberately wider than the
