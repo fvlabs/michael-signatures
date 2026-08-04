@@ -67,8 +67,7 @@ const PEOPLE = [
     /* Kevin's details come from his previous signature (kevin-signature-gmail.html):
        Tech Lead, both numbers, the same office line. Two open questions flagged to
        him: the US number is the same one Michael lists, and the location line says
-       Seattle/Stockholm while his mobile is +55. No LinkedIn URL yet, so his icon
-       column is web + Instagram until he sends one. */
+       Seattle/Stockholm while his mobile is +55. */
     name: 'Kevin Farias',
     role: 'Tech Lead',
     company: 'Slashdev',
@@ -76,7 +75,7 @@ const PEOPLE = [
     phones: [PHONE_US, { href: 'tel:+5554999368153', label: '+55 54 99936-8153' }],
     email: { href: 'mailto:kevin@slashdev.io', label: 'kevin@slashdev.io' },
     location: 'Seattle, WA &middot; Stockholm, SE',
-    socials: [ICON.web(SITE), ICON.instagram(INSTAGRAM)],
+    socials: [ICON.web(SITE), ICON.linkedin('https://www.linkedin.com/in/kevin-de-farias/'), ICON.instagram(INSTAGRAM)],
   },
 ];
 
