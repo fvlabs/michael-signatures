@@ -24,6 +24,12 @@ const FONT = `Inter,'Helvetica Neue',Helvetica,Arial,sans-serif`;
 const ASSET_BASE = 'https://fvlabs.github.io/michael-signatures/michael-light/';
 const absolutize = (html) => html.replace(/src="assets\//g, `src="${ASSET_BASE}assets/`);
 
+/* #fffffe, not #ffffff: Gmail's mobile dark mode inverts backgrounds it reads as
+   pure white, which is what broke dark mode — the card went dark while the GIFs
+   (opaque, baked on white) stayed light. One value off pure white is invisible to
+   the eye but keeps Gmail's inverter from claiming the element. */
+const WHITE = '#fffffe';
+
 const C = {
   border: '#e4e4e7',   // panel hairline
   ink: '#09090b',      // name / strong text
@@ -82,7 +88,7 @@ const imgLink = (o, extra = '') =>
 const row = (inner, pad = '0') => `<tr><td style="margin:0.1px;padding:${pad};line-height:17px">${inner}</td></tr>`;
 
 const panel = (inner, pad = '15px', valign = 'top') =>
-  `<td valign="${valign}" align="left" bgcolor="#ffffff" style="margin:0.1px;padding:${pad};background-color:#ffffff;border:1px solid ${C.border};border-collapse:separate;border-radius:6px">${inner}</td>`;
+  `<td valign="${valign}" align="left" bgcolor="${WHITE}" style="margin:0.1px;padding:${pad};background-color:${WHITE};border:1px solid ${C.border};border-collapse:separate;border-radius:6px">${inner}</td>`;
 
 const logo = () => img('assets/logo-shine.gif', 96, 62, 'slashdev');
 const avatar = () => img('assets/avatar-ring.gif', 132, 132, M.name, 'border-radius:200px');
@@ -111,7 +117,9 @@ const details = () => tbl([
 ].join(''));
 
 /* outer wrapper — resets Gmail's inherited styles the way the reference does */
-const wrap = (inner) => `<table cellpadding="0" cellspacing="0" border="0" style="margin:0.1px;padding:0;border:0;text-indent:0;border-collapse:collapse;color:${C.body};font-size:10px;font-family:${FONT}"><tbody><tr><td style="margin:0.1px;padding:0;border:0;line-height:16px">${inner}</td></tr></tbody></table>`;
+/* One continuous off-white plate behind card + strip, padded so no page colour
+   shows through the gap between them. */
+const wrap = (inner) => `<table cellpadding="0" cellspacing="0" border="0" bgcolor="${WHITE}" style="margin:0.1px;padding:0;border:0;text-indent:0;border-collapse:collapse;background-color:${WHITE};color:${C.body};font-size:10px;font-family:${FONT}"><tbody><tr><td bgcolor="${WHITE}" style="margin:0.1px;padding:6px;border:0;line-height:16px;background-color:${WHITE}">${inner}</td></tr></tbody></table>`;
 
 /* The card sizes itself to its content (~373px). No explicit widths: with a width
    on only one panel the browser over-allocates it and starves the other, which
