@@ -52,7 +52,7 @@ const jobs = [
   /* slash-in wordmark, readability variants: ink colour x edge colour */
   { file: 'logo.html',   out: 'logo-slash-in.gif',    fps: 16, scale: 3, query: '?theme=slidein', alpha: true },
   { file: 'logo.html',   out: 'logo-slash-in-g.gif',  fps: 16, scale: 3, query: '?theme=slidein&edge=grey', alpha: true },
-  { file: 'logo.html',   out: 'logo-slash-in-w.gif',  fps: 16, scale: 3, query: '?theme=slidein&ink=white&edge=grey', alpha: true },
+  { file: 'logo.html',   out: 'logo-slash-in-w.gif',  fps: 16, scale: 3, query: '?theme=slidein&ink=white&edge=grey3', alpha: true },
   { file: 'logo.html',   out: 'logo-slash-in-n.gif',  fps: 16, scale: 3, query: '?theme=slidein&ink=navy&edge=none', alpha: true },
 ];
 

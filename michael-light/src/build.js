@@ -302,7 +302,7 @@ const WORDMARKS = [
   { key: 'B', logo: 'assets/logo-slash-in-g.gif', label: 'Black + grey hairline',
     note: 'Same as A but the edge is #9aa3b2 — softer, reads less like a drawn outline on dark, slightly less separation.' },
   { key: 'C', logo: 'assets/logo-slash-in-w.gif', label: 'White + grey hairline',
-    note: 'Michael&rsquo;s suggestion. Perfect on dark &mdash; and nearly invisible on white, where only the 0.37px grey hairline defines the letters. It is variant A inverted: whichever ink you pick, the opposite mode pays.' },
+    note: 'Michael&rsquo;s suggestion, edge darkened to #4b5563 after Kevin asked. Perfect on dark; on white the letters read as outlined shapes &mdash; visible now, but never solid. It is variant A inverted: whichever ink you pick, the opposite mode pays.' },
   { key: 'D', logo: 'assets/logo-slash-in-n.gif', label: 'Navy ink, no edge',
     note: 'No outline at all. #1e2a4a reads as near-black next to body text on white, and lifts to ~1.8:1 on Gmail dark instead of black&rsquo;s 1.24:1 — a dim but discernible silhouette.' },
 ];
