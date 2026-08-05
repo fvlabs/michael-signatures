@@ -35,10 +35,14 @@
   /* blackout sweeps brand blue rather than white: a white sweep merges into the
      white outline on a dark surface and the letters read as a blob */
   body.t-blackout .hi{color:#215ff6}
-  /* blackout: same black ink with a thin light outline. Invisible against white,
-     but it separates the letters from a dark surface. paint-order keeps the fill
-     on top so the stroke only shows outside the glyph. */
-  body.t-blackout .markA svg path{stroke:#eef2ff;stroke-width:26;paint-order:stroke}
+  /* blackout: same black ink with a hairline light outline. Invisible against white,
+     but it separates the letters from a dark surface. paint-order keeps the fill on
+     top so the stroke only shows outside the glyph.
+     :not(:last-of-type) = the d/e/v letters only — the slash is brand blue and
+     reads fine on dark unaided, so an outline round it just looks like a sticker.
+     stroke-width 10 in a 746-unit viewBox shown at 92px is 1.23px total, so about
+     0.6px sits outside the letter. */
+  body.t-blackout .markA svg path:not(:last-of-type){stroke:#eef2ff;stroke-width:10;paint-order:stroke}
   /* the slash is brand blue in every variant */
   body.t-black .markA svg path:last-of-type,
   body.t-blackout .markA svg path:last-of-type{color:#215ff6}
