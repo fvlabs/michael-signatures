@@ -48,7 +48,7 @@ const jobs = [
   { file: 'social.html', out: 'ic-agn-instagram.gif', fps: 12, scale: 3, query: '?icon=instagram&slot=3&theme=agnostic', alpha: true },
   { file: 'logo.html',   out: 'logo-shine-a.gif',     fps: 12, query: '?theme=agnostic', alpha: true },
   { file: 'logo.html',   out: 'logo-shine-k.gif',     fps: 12, query: '?theme=black', alpha: true },
-  { file: 'logo.html',   out: 'logo-shine-ko.gif',    fps: 12, query: '?theme=blackout', alpha: true },
+  { file: 'logo.html',   out: 'logo-shine-ko.gif',    fps: 12, scale: 3, query: '?theme=blackout', alpha: true },
 ];
 
 /* optional filter: `node src/bake.js -t` bakes only jobs whose output matches */

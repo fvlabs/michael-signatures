@@ -62,10 +62,11 @@ const THEMES = {
     /* transparent assets, so nothing carries a white plate into a darkened card.
        The wordmark is -ko: black ink with a hairline light edge on the d/e/v only,
        leaving the slash clean. Requested by Michael, who did not want the pure-blue
-       mark (-a) — it is not a brand style slashdev has used. The edge is 0.62px
-       outside each letter, invisible against white, and it stops the letters
-       disappearing on a dark card where plain black measures 1.24:1 against
-       Gmail's ~#202124. -k (plain black) and -a (blue) stay baked. */
+       mark (-a) — it is not a brand style slashdev has used. The edge is 0.37px
+       outside each letter (stroke-width 6, baked at 3x so the hairline survives
+       the 1-bit alpha threshold), invisible against white, and it stops the
+       letters disappearing on a dark card where plain black measures 1.24:1
+       against Gmail's ~#202124. -k (plain black) and -a (blue) stay baked. */
     suffix: '-t', logo: 'assets/logo-shine-ko.gif', awards: 'assets/awards-2026-t.png',
     note: 'What is live today. Gmail mobile dark mode inverts the card to dark but cannot touch the images, so the logo, badge and awards strip stay light and read as white boxes. The social icons no longer do — they are blue on transparency now.',
   },
