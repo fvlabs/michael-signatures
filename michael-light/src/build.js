@@ -148,6 +148,21 @@ const PEOPLE = [
       { key: 'instagram', href: INSTAGRAM },
     ],
   },
+  {
+    /* Email INFERRED from the michael@/kevin@ pattern — not confirmed. No mobile
+       and no LinkedIn supplied, so he lists the office number and two icons. */
+    name: 'Ermal Rexhmati',
+    role: 'Tech Lead',
+    company: 'Slashdev',
+    slug: 'ermal',
+    phones: [PHONE_US],
+    email: { href: 'mailto:ermal@slashdev.io', label: 'ermal@slashdev.io' },
+    location: 'Seattle, WA &middot; Stockholm, SE',
+    socials: [
+      { key: 'web', href: SITE },
+      { key: 'instagram', href: INSTAGRAM },
+    ],
+  },
 ];
 
 /* Awards strip: 1200x491 asset shown at 600x246 — deliberately wider than the

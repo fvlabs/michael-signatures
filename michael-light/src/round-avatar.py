@@ -19,6 +19,7 @@ from PIL import Image, ImageDraw
 HERE = os.path.dirname(os.path.abspath(__file__))
 ASSETS = os.path.join(HERE, '..', 'assets')
 TILES = os.path.join(HERE, 'tiles')
+SOURCES = os.path.join(ASSETS, 'avatars')   # originals, dropped in as "Name - Role.ext"
 SIZE = 264            # 2x the 132px display size
 SS = 4                # mask supersampling
 
@@ -26,6 +27,8 @@ SS = 4                # mask supersampling
 PEOPLE = {
     'michael': (os.path.join(TILES, 'michael.png'), None),
     'kevin': (os.path.join(TILES, 'kevin.png'), None),
+    # landscape frame, subject left of centre — crop to head-and-shoulders
+    'ermal': (os.path.join(SOURCES, 'Ermal - Tech Lead.png'), (235, 20, 875, 660)),
 }
 
 
