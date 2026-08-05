@@ -52,7 +52,13 @@ const absolutize = (html) => html.replace(/src="assets\//g, `src="${ASSET_BASE}a
 const THEMES = {
   light: {
     label: 'Current — light card',
-    bg: '#fffffe', ink: '#09090b', body: '#3f3f46', muted: '#71717a', border: '#e4e4e7',
+    /* bg null: declare no background at all. A #fffffe plate got inverted by Gmail
+       to ~#333 — lighter than its own #131315 page — so the signature sat on a
+       visible rectangle whose edge read as a second, spurious border just outside
+       the panel hairlines. With no background the panels are hairlines on whatever
+       surface the client paints, and light mode is unchanged (it was white on
+       white anyway). */
+    bg: null, ink: '#09090b', body: '#3f3f46', muted: '#71717a', border: '#e4e4e7',
     /* transparent assets, so nothing carries a white plate into a darkened card.
        The wordmark is -k: plain black ink on transparency with the original white
        sweep. Kevin's call, having seen the alternatives — the outlined version
