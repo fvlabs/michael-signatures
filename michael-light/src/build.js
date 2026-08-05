@@ -68,9 +68,12 @@ const THEMES = {
        letters disappearing on a dark card where plain black measures 1.24:1
        against Gmail's ~#202124. -k (plain black) and -a (blue) stay baked.
        Animation is the slash sliding in along its own slant and docking into the
-       word (Kevin's idea), replacing the sweep — whose highlight was the same blue
-       as the slash anyway, so it read as slash-coloured light. */
-    suffix: '-t', logo: 'assets/logo-slash-in.gif', awards: 'assets/awards-2026-t.png',
+       word (Kevin's idea), then the blue sweep crossing the letters.
+       Edge grey: Kevin tested the eight-step ladder on his phone and picked 8
+       (#4b5563, the darkest) — so the edge is essentially invisible in both modes
+       and the letters sit as a silhouette on dark. His call, made after seeing the
+       trade. logo-grey-8.gif is the ladder bake, already live. */
+    suffix: '-t', logo: 'assets/logo-grey-8.gif', awards: 'assets/awards-2026-t.png',
     note: 'What is live today. Gmail mobile dark mode inverts the card to dark but cannot touch the images, so the logo, badge and awards strip stay light and read as white boxes. The social icons no longer do — they are blue on transparency now.',
   },
   transparent: {
@@ -297,7 +300,7 @@ ${block(p.name, plainName(p).split(' ')[0].toUpperCase(), absolutize(signature(p
 /* wordmark readability test: Kevin's signature with each candidate wordmark.
    All share the slash-in entrance + blue sweep; they differ in letter ink/edge. */
 const WORDMARKS = [
-  { key: 'A', logo: 'assets/logo-slash-in.gif', label: 'Black + white hairline (current)',
+  { key: 'A', logo: 'assets/logo-slash-in.gif', label: 'Black + white hairline',
     note: 'Correct on white. On dark the letters are a faint silhouette lifted by the white hairline.' },
   { key: 'B', logo: 'assets/logo-slash-in-g.gif', label: 'Black + grey hairline',
     note: 'Same as A but the edge is #9aa3b2 — softer, reads less like a drawn outline on dark, slightly less separation.' },
@@ -317,7 +320,7 @@ const greyLadder = () => wrap(tbl(GREYS.map(([n, hex]) => `<tr>
 </tr>`).join('')));
 
 const wordmarkPage = () => SHELL('Wordmark readability test', 'Wordmark readability test', `
-<h2>Grey ladder &mdash; all eight in one block</h2>
+<h2>Grey ladder &mdash; all eight in one block <span class="role">shipping: 8, #4b5563</span></h2>
 <p>Black letters, hairline edge in eight greys, light to dark (3 is the original B, 8 the darkest from the earlier ladder). Copy this single block and paste it once &mdash; every step lands in the same email, so flipping the phone between modes compares them all at once. The labels are real text, so they invert with the client.</p>
 ${block('Grey ladder', 'GREY-LADDER', absolutize(greyLadder()))}
 
