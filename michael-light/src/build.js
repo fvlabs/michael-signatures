@@ -54,14 +54,13 @@ const THEMES = {
     label: 'Current — light card',
     bg: '#fffffe', ink: '#09090b', body: '#3f3f46', muted: '#71717a', border: '#e4e4e7',
     /* transparent assets, so nothing carries a white plate into a darkened card.
-       The wordmark is -ko: the original black ink with a thin light outline. Plain
-       black measures 1.24:1 against Gmail's dark surface (~#202124) and vanishes,
-       leaving the slash on its own; the outline is invisible at 96px on white but
-       separates the letters from a dark card. Its sweep is brand blue rather than
-       white, because a white sweep merges into the outline on dark. logo-shine-k
-       (plain black) and logo-shine-a (all blue) are both still baked if this needs
-       revisiting. */
-    suffix: '-t', logo: 'assets/logo-shine-ko.gif', awards: 'assets/awards-2026-t.png',
+       The wordmark is -k: plain black ink on transparency with the original white
+       sweep. Kevin's call, having seen the alternatives — the outlined version
+       (-ko) read badly, and all-blue (-a) was not the brand mark. The accepted
+       cost is that black measures 1.24:1 against Gmail's dark surface (~#202124),
+       so on a darkened card the letters fade out and the blue slash carries the
+       mark on its own. -ko and -a stay baked. */
+    suffix: '-t', logo: 'assets/logo-shine-k.gif', awards: 'assets/awards-2026-t.png',
     note: 'What is live today. Gmail mobile dark mode inverts the card to dark but cannot touch the images, so the logo, badge and awards strip stay light and read as white boxes. The social icons no longer do — they are blue on transparency now.',
   },
   transparent: {
