@@ -294,6 +294,24 @@ const mainPage = () => SHELL('Slashdev email signatures', 'Slashdev email signat
 ${PEOPLE.map(p => `<h2>${plainName(p)} <span class="role">${p.role.replace(/&amp;/g, '&')}</span></h2>
 ${block(p.name, plainName(p).split(' ')[0].toUpperCase(), absolutize(signature(p)))}`).join('\n')}`);
 
+/* wordmark readability test: Kevin's signature with each candidate wordmark.
+   All share the slash-in entrance + blue sweep; they differ in letter ink/edge. */
+const WORDMARKS = [
+  { key: 'A', logo: 'assets/logo-slash-in.gif', label: 'Black + white hairline (current)',
+    note: 'Correct on white. On dark the letters are a faint silhouette lifted by the white hairline.' },
+  { key: 'B', logo: 'assets/logo-slash-in-g.gif', label: 'Black + grey hairline',
+    note: 'Same as A but the edge is #9aa3b2 — softer, reads less like a drawn outline on dark, slightly less separation.' },
+  { key: 'C', logo: 'assets/logo-slash-in-w.gif', label: 'White + grey hairline',
+    note: 'Michael&rsquo;s suggestion. Perfect on dark &mdash; and nearly invisible on white, where only the 0.37px grey hairline defines the letters. It is variant A inverted: whichever ink you pick, the opposite mode pays.' },
+  { key: 'D', logo: 'assets/logo-slash-in-n.gif', label: 'Navy ink, no edge',
+    note: 'No outline at all. #1e2a4a reads as near-black next to body text on white, and lifts to ~1.8:1 on Gmail dark instead of black&rsquo;s 1.24:1 — a dim but discernible silhouette.' },
+];
+const wordmarkPage = () => SHELL('Wordmark readability test', 'Wordmark readability test', `
+<p>Kevin&rsquo;s signature four times; only the wordmark differs. All carry the slash-in entrance and the blue sweep. Paste each into Gmail and check both modes &mdash; the trade is one-directional: ink that is right for light mode fades on dark, and vice versa; the hairline is the compromise dial.</p>
+${WORDMARKS.map(w => `<h2>${w.key} &mdash; ${w.label}</h2>
+<p>${w.note}</p>
+${block(w.label, 'WM-' + w.key, absolutize(signature(PEOPLE[1], { ...THEMES.light, logo: w.logo })))}`).join('\n')}`);
+
 /* the test page: one person, all three themes */
 const TEST_PERSON = PEOPLE[1];   // Kevin — he's the one pasting into Gmail
 const testPage = () => SHELL('Dark-mode test — three variants',
@@ -308,7 +326,8 @@ ${Object.entries(THEMES).map(([key, theme]) => `<h2>${theme.label} <span class="
 ${block(theme.label, key.toUpperCase(), absolutize(signature(TEST_PERSON, theme)), key === 'dark')}`).join('\n')}`);
 
 /* ---------- write ---------- */
-const pages = [...FILES.map(f => [f, mainPage()]), ['dark-mode-test.html', testPage()]];
+const pages = [...FILES.map(f => [f, mainPage()]), ['dark-mode-test.html', testPage()],
+  ['wordmark-test.html', wordmarkPage()]];
 for (const [f, html] of pages) {
   fs.writeFileSync(path.join(OUT, f), html);
   console.log('wrote', f);
