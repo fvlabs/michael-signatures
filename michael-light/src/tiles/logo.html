@@ -114,7 +114,9 @@
   var ink=(location.search.match(/ink=(\w+)/)||[])[1];
   var edge=(location.search.match(/edge=(\w+)/)||[])[1];
   var INKS={black:'#09090b',white:'#ffffff',navy:'#1e2a4a'};
-  var EDGES={white:'#eef2ff',grey:'#9aa3b2',grey2:'#6b7280',grey3:'#4b5563'};
+  var EDGES={white:'#eef2ff',grey:'#9aa3b2',grey2:'#6b7280',grey3:'#4b5563',
+    gr1:'#c7cdd6',gr2:'#adb4c0',gr3:'#9aa3b2',gr4:'#8a919c',
+    gr5:'#7a828e',gr6:'#6b7280',gr7:'#5b6472',gr8:'#4b5563'};
   if (ink) document.body.style.setProperty('--ink', INKS[ink]);
   if (edge==='none') document.body.classList.add('e-none');
   else if (edge) document.body.style.setProperty('--edge', EDGES[edge]);

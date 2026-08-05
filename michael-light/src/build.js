@@ -306,7 +306,22 @@ const WORDMARKS = [
   { key: 'D', logo: 'assets/logo-slash-in-n.gif', label: 'Navy ink, no edge',
     note: 'No outline at all. #1e2a4a reads as near-black next to body text on white, and lifts to ~1.8:1 on Gmail dark instead of black&rsquo;s 1.24:1 — a dim but discernible silhouette.' },
 ];
+/* the grey ladder: eight hairline greys in ONE copy block, so a single paste puts
+   the whole ladder into one email and both modes can be compared side by side */
+const GREYS = [['1','#c7cdd6'],['2','#adb4c0'],['3','#9aa3b2'],['4','#8a919c'],
+               ['5','#7a828e'],['6','#6b7280'],['7','#5b6472'],['8','#4b5563']];
+const greyLadder = () => wrap(tbl(GREYS.map(([n, hex]) => `<tr>
+  <td style="margin:0.1px;padding:6px 0">${img(`assets/logo-grey-${n}.gif`, 96, 62, `slashdev, edge ${hex}`)}</td>
+  ${spacer(14)}
+  <td valign="middle" style="margin:0.1px">${text(`${n} &nbsp;&middot;&nbsp; edge ${hex}`, { size: 12 })}</td>
+</tr>`).join('')));
+
 const wordmarkPage = () => SHELL('Wordmark readability test', 'Wordmark readability test', `
+<h2>Grey ladder &mdash; all eight in one block</h2>
+<p>Black letters, hairline edge in eight greys, light to dark (3 is the original B, 8 the darkest from the earlier ladder). Copy this single block and paste it once &mdash; every step lands in the same email, so flipping the phone between modes compares them all at once. The labels are real text, so they invert with the client.</p>
+${block('Grey ladder', 'GREY-LADDER', absolutize(greyLadder()))}
+
+<p style="margin-top:40px">&mdash;</p>
 <p>Kevin&rsquo;s signature four times; only the wordmark differs. All carry the slash-in entrance and the blue sweep. Paste each into Gmail and check both modes &mdash; the trade is one-directional: ink that is right for light mode fades on dark, and vice versa; the hairline is the compromise dial.</p>
 ${WORDMARKS.map(w => `<h2>${w.key} &mdash; ${w.label}</h2>
 <p>${w.note}</p>

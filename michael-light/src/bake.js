@@ -54,6 +54,15 @@ const jobs = [
   { file: 'logo.html',   out: 'logo-slash-in-g.gif',  fps: 16, scale: 3, query: '?theme=slidein&edge=grey', alpha: true },
   { file: 'logo.html',   out: 'logo-slash-in-w.gif',  fps: 16, scale: 3, query: '?theme=slidein&ink=white&edge=grey3', alpha: true },
   { file: 'logo.html',   out: 'logo-slash-in-n.gif',  fps: 16, scale: 3, query: '?theme=slidein&ink=navy&edge=none', alpha: true },
+  /* grey ladder: black letters, hairline edge in eight greys light -> dark */
+  { file: 'logo.html',   out: 'logo-grey-1.gif',    fps: 16, scale: 3, query: '?theme=slidein&edge=gr1', alpha: true },
+  { file: 'logo.html',   out: 'logo-grey-2.gif',    fps: 16, scale: 3, query: '?theme=slidein&edge=gr2', alpha: true },
+  { file: 'logo.html',   out: 'logo-grey-3.gif',    fps: 16, scale: 3, query: '?theme=slidein&edge=gr3', alpha: true },
+  { file: 'logo.html',   out: 'logo-grey-4.gif',    fps: 16, scale: 3, query: '?theme=slidein&edge=gr4', alpha: true },
+  { file: 'logo.html',   out: 'logo-grey-5.gif',    fps: 16, scale: 3, query: '?theme=slidein&edge=gr5', alpha: true },
+  { file: 'logo.html',   out: 'logo-grey-6.gif',    fps: 16, scale: 3, query: '?theme=slidein&edge=gr6', alpha: true },
+  { file: 'logo.html',   out: 'logo-grey-7.gif',    fps: 16, scale: 3, query: '?theme=slidein&edge=gr7', alpha: true },
+  { file: 'logo.html',   out: 'logo-grey-8.gif',    fps: 16, scale: 3, query: '?theme=slidein&edge=gr8', alpha: true },
 ];
 
 /* optional filter: `node src/bake.js -t` bakes only jobs whose output matches */
