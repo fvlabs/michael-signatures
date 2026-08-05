@@ -66,8 +66,11 @@ const THEMES = {
        outside each letter (stroke-width 6, baked at 3x so the hairline survives
        the 1-bit alpha threshold), invisible against white, and it stops the
        letters disappearing on a dark card where plain black measures 1.24:1
-       against Gmail's ~#202124. -k (plain black) and -a (blue) stay baked. */
-    suffix: '-t', logo: 'assets/logo-shine-ko.gif', awards: 'assets/awards-2026-t.png',
+       against Gmail's ~#202124. -k (plain black) and -a (blue) stay baked.
+       Animation is the slash sliding in along its own slant and docking into the
+       word (Kevin's idea), replacing the sweep — whose highlight was the same blue
+       as the slash anyway, so it read as slash-coloured light. */
+    suffix: '-t', logo: 'assets/logo-slash-in.gif', awards: 'assets/awards-2026-t.png',
     note: 'What is live today. Gmail mobile dark mode inverts the card to dark but cannot touch the images, so the logo, badge and awards strip stay light and read as white boxes. The social icons no longer do — they are blue on transparency now.',
   },
   transparent: {

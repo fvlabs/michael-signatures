@@ -49,6 +49,7 @@ const jobs = [
   { file: 'logo.html',   out: 'logo-shine-a.gif',     fps: 12, query: '?theme=agnostic', alpha: true },
   { file: 'logo.html',   out: 'logo-shine-k.gif',     fps: 12, query: '?theme=black', alpha: true },
   { file: 'logo.html',   out: 'logo-shine-ko.gif',    fps: 12, scale: 3, query: '?theme=blackout', alpha: true },
+  { file: 'logo.html',   out: 'logo-slash-in.gif',    fps: 16, scale: 3, query: '?theme=slidein', alpha: true },
 ];
 
 /* optional filter: `node src/bake.js -t` bakes only jobs whose output matches */
