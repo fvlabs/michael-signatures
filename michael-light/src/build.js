@@ -116,10 +116,14 @@ const PHONE_US = { href: 'tel:+19292779018', label: '+1 (929) 277-9018' };
    ~77% opaque white per frame — which is why they showed as white boxes wherever
    the client darkened the card. Blue on transparency reads on white and on dark,
    so every theme now shares one icon set. Dimensions follow the source artwork:
-   133x128 for web, 140x128 for the rest, shown at width 24 as the original did. */
+   133x128 for web, 140x128 for the rest, shown at width 24 as the original did.
+
+   x and youtube have no reference artwork; they are drawn and baked to match
+   (src/tiles/social-pop.html via src/bake.js), continuing the cascade as
+   slots 4 and 5. */
 function iconAsset(key) {
   const [w, h] = key === 'web' ? [24, 23] : [24, 22];
-  const alt = { web: 'slashdev.io', linkedin: 'LinkedIn', instagram: 'Instagram' }[key];
+  const alt = { web: 'slashdev.io', linkedin: 'LinkedIn', instagram: 'Instagram', x: 'X', youtube: 'YouTube' }[key];
   return { src: `assets/ic-blue-${key}.gif`, w, h, alt };
 }
 
@@ -136,6 +140,8 @@ const PEOPLE = [
       { key: 'web', href: SITE },
       { key: 'linkedin', href: 'https://www.linkedin.com/in/mballard23/' },
       { key: 'instagram', href: INSTAGRAM },
+      { key: 'x', href: 'https://x.com/slashdevhq' },
+      { key: 'youtube', href: 'https://www.youtube.com/@slashdevhq' },
     ],
   },
   {

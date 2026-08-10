@@ -1,0 +1,41 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+  /* Companion tiles for the recoloured vendor rail (ic-blue-*.gif). Those come
+     from src/recolor-icons.py and only exist for web/linkedin/instagram — there
+     is no vendor source for x or youtube, so these are drawn to match: same
+     blue on transparency, same glyph scale (58/140 of the tile), and the same
+     6480 ms loop so every GIF in the rail re-cascades in step.
+
+     The cascade's half-size steps land ~360 ms apart: web 600, linkedin 960,
+     instagram 1320 — so slot 4 (x) pops at 1680 ms and slot 5 (youtube) at
+     2040 ms, each a ~300 ms grow-overshoot-settle like the vendor pop.
+
+     ?icon=x|youtube&slot=4|5 */
+  html,body{margin:0;padding:0;background:transparent}
+  body{width:24px;height:22px;display:grid;place-items:center;overflow:hidden;color:#215ff6}
+  svg{width:10px;height:10px;display:block;overflow:visible}
+  span{display:grid;place-items:center;transform-origin:50% 50%}
+  .s4{animation:pop4 6.48s ease infinite}
+  .s5{animation:pop5 6.48s ease infinite}
+  /* hold at 0, grow with overshoot, settle, hold to 100% — the snap back to 0
+     at the loop point matches the vendor icons, which also re-pop each loop */
+  @keyframes pop4{0%,24.07%{transform:scale(0)}26.85%{transform:scale(1.12)}28.7%,100%{transform:scale(1)}}
+  @keyframes pop5{0%,29.63%{transform:scale(0)}32.41%{transform:scale(1.12)}34.26%,100%{transform:scale(1)}}
+</style></head>
+<body data-period="6480" data-w="24" data-h="22">
+
+<span id="x"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M18.9 1.15h4.02l-8.78 10.03L24 22.85h-8.09l-6.33-8.28-7.25 8.28H.31l9.4-10.74L0 1.15h8.3l5.72 7.57 4.88-7.57zm-1.41 19.28h2.23L6.62 3.44H4.23l13.26 16.99z"/></svg></span>
+
+<!-- outline lozenge + solid play wedge, stroke matched to the instagram camera -->
+<span id="youtube"><svg viewBox="0 0 24 24"><rect x="1.2" y="3.7" width="21.6" height="16.6" rx="4.6" fill="none" stroke="currentColor" stroke-width="1.9"/><path fill="currentColor" d="M9.9 8.5l6 3.5-6 3.5z"/></svg></span>
+
+<script>
+  var q = location.search;
+  var which = (q.match(/icon=(\w+)/) || [])[1] || 'x';
+  var slot  = (q.match(/slot=(\d)/) || [])[1] || '4';
+  ['x','youtube'].forEach(function (k) {
+    var el = document.getElementById(k);
+    if (k === which) { el.style.display = 'grid'; el.className = 's' + slot; }
+    else el.style.display = 'none';
+  });
+</script>
+</body></html>

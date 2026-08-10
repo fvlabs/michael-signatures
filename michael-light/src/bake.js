@@ -27,6 +27,12 @@ const jobs = [
   { file: 'social.html', out: 'ic-github.gif',    fps: 12, scale: 3, query: '?icon=github&slot=4' },
   { file: 'social.html', out: 'ic-instagram.gif', fps: 12, scale: 3, query: '?icon=instagram&slot=3' },
   { file: 'social.html', out: 'ic-facebook.gif',  fps: 12, scale: 3, query: '?icon=facebook&slot=4' },
+  /* rail additions with no vendor source (see src/tiles/social-pop.html).
+     fps 1000/30 -> 216 frames of exactly 30 ms, so the loop is 6480 ms — the
+     same period as the recoloured vendor GIFs; any other frame duration would
+     drift the cascade out of sync a little more on every loop. */
+  { file: 'social-pop.html', out: 'ic-blue-x.gif',       fps: 1000 / 30, scale: 6, query: '?icon=x&slot=4', alpha: true },
+  { file: 'social-pop.html', out: 'ic-blue-youtube.gif', fps: 1000 / 30, scale: 6, query: '?icon=youtube&slot=5', alpha: true },
   { file: 'badge.html',  out: 'badge-verified.gif', fps: 12, scale: 3 },
   { file: 'logo.html',   out: 'logo-shine.gif',  fps: 12 },
 
