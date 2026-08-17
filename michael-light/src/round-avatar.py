@@ -19,7 +19,7 @@ from PIL import Image, ImageDraw
 HERE = os.path.dirname(os.path.abspath(__file__))
 ASSETS = os.path.join(HERE, '..', 'assets')
 TILES = os.path.join(HERE, 'tiles')
-SOURCES = os.path.join(ASSETS, 'avatars')   # originals, dropped in as "Name - Role.ext"
+SOURCES = os.path.join(ASSETS, 'avatars')   # originals, in "<Role>/<Full Name>.ext" folders
 SIZE = 264            # 2x the 132px display size
 SS = 4                # mask supersampling
 
@@ -27,8 +27,20 @@ SS = 4                # mask supersampling
 PEOPLE = {
     'michael': (os.path.join(TILES, 'michael.png'), None),
     'kevin': (os.path.join(TILES, 'kevin.png'), None),
+    # face sits high with zero headroom; the negative top pads sky above the
+    # frame (see build) and the crop drops the hoodie he holds
+    'patrich': (os.path.join(SOURCES, 'CTO', 'Patrich Soderstrom.jpeg'), (30, -40, 470, 400)),
+    'andre': (os.path.join(SOURCES, 'Member of Technical Staff', 'Andre Bernardi.jpeg'), None),
+    # full-length field shot — tight to head and crossed arms
+    'armand': (os.path.join(SOURCES, 'Member of Technical Staff', 'Armand Rexhmati.jpg'), (690, 1820, 2100, 3230)),
+    'bruno': (os.path.join(SOURCES, 'Member of Technical Staff', 'Bruno Bordignon.png'), None),
+    # three-quarter shot against the wall — bring the head up to frame
+    'elti': (os.path.join(SOURCES, 'Member of Technical Staff', 'Elti Shaba.jpeg'), (200, 370, 760, 930)),
+    'henrique': (os.path.join(SOURCES, 'Member of Technical Staff', 'Henrique Bovareto.png'), None),
+    'matheus': (os.path.join(SOURCES, 'Member of Technical Staff', 'Matheus Mello.png'), None),
+    'tiago': (os.path.join(SOURCES, 'Member of Technical Staff', 'Tiago Seben.jpeg'), None),
     # landscape frame, subject left of centre — crop to head-and-shoulders
-    'ermal': (os.path.join(SOURCES, 'Ermal - Tech Lead.png'), (235, 20, 875, 660)),
+    'ermal': (os.path.join(SOURCES, 'Tech Lead', 'Ermal Rexhmati.png'), (235, 20, 875, 660)),
 }
 
 
@@ -36,6 +48,12 @@ def build(name):
     src, box = PEOPLE[name]
     im = Image.open(src).convert('RGB')
     if box:
+        if box[1] < 0:   # headroom: extend the canvas with the top-edge colour
+            pad = -box[1]
+            top = im.resize((1, 1), box=(0, 0, im.size[0], 1)).getpixel((0, 0))
+            canvas = Image.new('RGB', (im.size[0], im.size[1] + pad), top)
+            canvas.paste(im, (0, pad))
+            im, box = canvas, (box[0], 0, box[2], box[3] + pad)
         im = im.crop(box)
     s = min(im.size)
     im = im.crop(((im.size[0] - s) // 2, (im.size[1] - s) // 2,

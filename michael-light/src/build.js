@@ -9,17 +9,29 @@
    Run: node src/build.js            (add --local to also write preview/)
 
    Writes:
-     index.html, L1-two-panel.html, kevin.html   the shipping signatures (light)
+     index.html, L1-two-panel.html, kevin.html   the name gate (the two legacy
+                                                  filenames stay so old links land
+                                                  on the gate instead of a 404)
+     p/<hash>.html                                one signature page per person,
+                                                  named by a hash of their name
      dark-mode-test.html                          light vs transparent vs dark vs
                                                   theme-agnostic, for pasting into
                                                   Gmail to see what its mobile dark
                                                   mode does to each
+
+   Privacy: nobody's contact card is listed publicly. index.html asks for a
+   name, hashes it in the browser (SHA-256) and looks the hash up in a shipped
+   hash->page map, so the deployed HTML carries no readable roster and the
+   per-person URLs cannot be enumerated by browsing. This is privacy from
+   casual browsing and scraping, not cryptography — the source repo still
+   holds the data in this file.
 
    History: earlier revisions carried three other layouts and four icon sets.
    Kevin picked this one (two-panel + the reference icon files at 24px), so the
    alternatives are gone — see git log if one is ever needed again. */
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 const OUT = path.join(__dirname, '..');
 const FONT = `Inter,'Helvetica Neue',Helvetica,Arial,sans-serif`;
@@ -161,22 +173,33 @@ const PEOPLE = [
       { key: 'instagram', href: INSTAGRAM },
     ],
   },
-  {
-    /* Email INFERRED from the michael@/kevin@ pattern — not confirmed. No mobile
-       and no LinkedIn supplied, so he lists the office number and two icons. */
-    name: 'Ermal Rexhmati',
-    role: 'Tech Lead',
-    company: 'Slashdev',
-    slug: 'ermal',
+  /* Everyone below came in as a photo in assets/avatars/<Role>/<Full Name>.ext
+     and nothing else. Emails are INFERRED from the michael@/kevin@ pattern —
+     not confirmed — and with no mobile or LinkedIn supplied they list the
+     office number and the two company icons, same as Ermal has shipped with. */
+  member('Patrich Soderstrom', 'CTO', 'patrich'),
+  member('Ermal Rexhmati', 'Tech Lead', 'ermal'),
+  member('Andre Bernardi', 'Member of Technical Staff', 'andre'),
+  member('Armand Rexhmati', 'Member of Technical Staff', 'armand'),
+  member('Bruno Bordignon', 'Member of Technical Staff', 'bruno'),
+  member('Elti Shaba', 'Member of Technical Staff', 'elti'),
+  member('Henrique Bovareto', 'Member of Technical Staff', 'henrique'),
+  member('Matheus Mello', 'Member of Technical Staff', 'matheus'),
+  member('Tiago Seben', 'Member of Technical Staff', 'tiago'),
+];
+
+function member(name, role, slug) {
+  return {
+    name, role, company: 'Slashdev', slug,
     phones: [PHONE_US],
-    email: { href: 'mailto:ermal@slashdev.io', label: 'ermal@slashdev.io' },
+    email: { href: `mailto:${slug}@slashdev.io`, label: `${slug}@slashdev.io` },
     location: 'Seattle, WA &middot; Stockholm, SE',
     socials: [
       { key: 'web', href: SITE },
       { key: 'instagram', href: INSTAGRAM },
     ],
-  },
-];
+  };
+}
 
 /* Awards strip: 1200x491 asset shown at 600x246 — deliberately wider than the
    ~373px card. 600 is where the Clutch sub-scores become readable (~10px), and
@@ -269,7 +292,14 @@ function signature(p, theme = THEMES.light) {
 const plainName = (p) => p.name.replace(/&amp;/g, '&');
 const SHELL = (title, head, body) => `<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><title>${title}</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <style>body{background:#fff;margin:0;padding:40px 24px 90px;font-family:${FONT};color:#18181b}
+.gate{max-width:860px;margin:22px auto 0;display:flex;gap:10px;flex-wrap:wrap}
+.gate input{flex:1;min-width:220px;font:inherit;font-size:15px;padding:11px 14px;border:1px solid #d4d4d8;border-radius:8px;outline-color:#215ff6}
+.gate button{font:inherit;font-size:15px;font-weight:600;padding:11px 20px;border:0;border-radius:8px;background:#215ff6;color:#fff;cursor:pointer}
+.gate button:hover{background:#1a4fd0}
+#msg{color:#b91c1c;min-height:20px;margin-top:12px}
 h1{font-size:24px;max-width:860px;margin:0 auto 10px}
 h2{font-size:19px;max-width:860px;margin:52px auto 0;display:flex;align-items:baseline;gap:10px}
 .role{font-size:13px;font-weight:400;color:#71717a}
@@ -294,12 +324,67 @@ ${inner}
 </div>`;
 }
 
-/* the shipping page: both people, light theme */
+/* ---------- gated shipping pages ----------
+   One page per person under p/, named by the first 16 hex chars of
+   sha256(normalised full name). The gate accepts a first name or a full name
+   (both normalised the same way: lowercase, accents stripped, whitespace
+   collapsed) and maps sha256(input) -> page through DIR, which ships only
+   hashes. First names are all unique across the roster; the build throws if
+   that ever stops being true. */
+const norm = (s) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  .toLowerCase().replace(/\s+/g, ' ').trim();
+const sha256 = (s) => crypto.createHash('sha256').update(s).digest('hex');
+const personFile = (p) => `p/${sha256(norm(plainName(p))).slice(0, 16)}.html`;
+
+const DIR = {};
+for (const p of PEOPLE) {
+  for (const key of [norm(plainName(p)), norm(plainName(p)).split(' ')[0]]) {
+    const h = sha256(key);
+    if (DIR[h] && DIR[h] !== personFile(p)) throw new Error(`name collision on "${key}"`);
+    DIR[h] = personFile(p);
+  }
+}
+
+/* legacy filenames kept so links that circulated before the gate still work */
 const FILES = ['index.html', 'L1-two-panel.html', 'kevin.html'];
-const mainPage = () => SHELL('Slashdev email signatures', 'Slashdev email signatures', `
+const gatePage = () => SHELL('Slashdev email signatures', 'Slashdev email signatures', `
+<p>Every team member has their own signature page. Type your name (first name is enough) and it opens &mdash; nothing here lists anyone else&rsquo;s card.</p>
+<form class="gate" id="f">
+  <input id="q" type="text" placeholder="Your name" autocomplete="name" autofocus>
+  <button type="submit">Open my signature</button>
+</form>
+<p id="msg"></p>
+<script>
+const DIR = ${JSON.stringify(DIR)};
+const norm = (s) => s.normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').toLowerCase().replace(/\\s+/g, ' ').trim();
+async function sha256(s) {
+  const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+  return Array.from(new Uint8Array(b), (x) => x.toString(16).padStart(2, '0')).join('');
+}
+document.getElementById('f').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const q = norm(document.getElementById('q').value);
+  if (!q) return;
+  const hit = DIR[await sha256(q)];
+  if (hit) { location.href = hit; return; }
+  document.getElementById('msg').textContent = 'No signature found for that name — check the spelling (first or full name), or ask Kevin to add you.';
+});
+</script>`);
+
+/* one person's page: their block plus the install instructions.
+   Asset URLs are absolute, so living under p/ changes nothing there; only the
+   dark-mode-test link is relative and needs the ../ hop. */
+const personPage = (p) => SHELL(`Slashdev email signature`,
+  `${plainName(p)} <span class="role">${p.role.replace(/&amp;/g, '&')}</span>`, `
 <p>Email-safe: table markup with inline styles, real clickable <code>tel:</code> / <code>mailto:</code> / profile links, and every animation baked into a looping GIF (email clients can&rsquo;t run CSS, but they all play GIFs).</p>
-<p>To install: find your name below and copy everything between its <code>SIGNATURE</code> comments into Gmail &rarr; Settings &rarr; Signature. Image URLs are already public, so it works as-is.</p>
-<p><b>Gmail mobile dark mode inverts this card</b> and leaves the images light. See <a href="dark-mode-test.html">the dark-mode test page</a> for what each possible fix actually does.</p>
+<p>To install: copy everything between the <code>SIGNATURE</code> comments below into Gmail &rarr; Settings &rarr; Signature. Image URLs are already public, so it works as-is. Anything wrong on the card (number, e-mail, links) &mdash; tell Kevin.</p>
+<p><b>Gmail mobile dark mode inverts this card</b> and leaves the images light. See <a href="../dark-mode-test.html">the dark-mode test page</a> for what each possible fix actually does.</p>
+${block(p.name, plainName(p).split(' ')[0].toUpperCase(), absolutize(signature(p)))}`);
+
+/* everyone on one page — never shipped, --local review only */
+const allPage = () => SHELL('Slashdev email signatures — all (local review)',
+  'Slashdev email signatures &mdash; all (local review)', `
+<p>Every signature on one page for review. This file only exists in the gitignored preview/ folder &mdash; the shipped site is the name gate plus one hash-named page per person.</p>
 ${PEOPLE.map(p => `<h2>${plainName(p)} <span class="role">${p.role.replace(/&amp;/g, '&')}</span></h2>
 ${block(p.name, plainName(p).split(' ')[0].toUpperCase(), absolutize(signature(p)))}`).join('\n')}`);
 
@@ -350,20 +435,28 @@ ${Object.entries(THEMES).map(([key, theme]) => `<h2>${theme.label} <span class="
 ${block(theme.label, key.toUpperCase(), absolutize(signature(TEST_PERSON, theme)), key === 'dark')}`).join('\n')}`);
 
 /* ---------- write ---------- */
-const pages = [...FILES.map(f => [f, mainPage()]), ['dark-mode-test.html', testPage()],
-  ['wordmark-test.html', wordmarkPage()]];
+const pages = [
+  ...FILES.map(f => [f, gatePage()]),
+  ...PEOPLE.map(p => [personFile(p), personPage(p)]),
+  ['dark-mode-test.html', testPage()],
+  ['wordmark-test.html', wordmarkPage()],
+];
+fs.mkdirSync(path.join(OUT, 'p'), { recursive: true });
 for (const [f, html] of pages) {
   fs.writeFileSync(path.join(OUT, f), html);
   console.log('wrote', f);
 }
 
 /* preview/ carries relative asset paths so everything can be reviewed on disk
-   before the GIFs are live on Pages. preview/ is gitignored. */
+   before the GIFs are live on Pages. preview/ is gitignored. The gate's name
+   lookup needs http(s) for crypto.subtle in some browsers — serve preview/
+   with `python3 -m http.server` if the redirect is what you are checking. */
 if (process.argv.includes('--local')) {
   const P = path.join(OUT, 'preview');
-  fs.mkdirSync(P, { recursive: true });
-  for (const [f, html] of pages) {
-    fs.writeFileSync(path.join(P, f), html.split(ASSET_BASE + 'assets/').join('../assets/'));
+  fs.mkdirSync(path.join(P, 'p'), { recursive: true });
+  for (const [f, html] of [...pages, ['all.html', allPage()]]) {
+    const up = f.includes('/') ? '../../assets/' : '../assets/';
+    fs.writeFileSync(path.join(P, f), html.split(ASSET_BASE + 'assets/').join(up));
   }
-  console.log('wrote preview/ (relative asset paths)');
+  console.log('wrote preview/ (relative asset paths, plus all.html review page)');
 }
