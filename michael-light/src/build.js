@@ -117,6 +117,7 @@ let T = THEMES.light;   // set per render
 
 const SITE = 'https://slashdev.io';
 const INSTAGRAM = 'https://www.instagram.com/slashdevhq';
+const LINKEDIN_COMPANY = 'https://www.linkedin.com/company/slashdev-io';
 const PHONE_US = { href: 'tel:+19292779018', label: '+1 (929) 277-9018' };
 
 /* Instagram is the company account; the ?igsh= share tracker from the app link is
@@ -175,9 +176,11 @@ const PEOPLE = [
   },
   /* Everyone below came in as a photo in assets/avatars/<Role>/<Full Name>.ext
      and nothing else. Emails are INFERRED from the michael@/kevin@ pattern —
-     not confirmed — and with no mobile or LinkedIn supplied they list the
-     office number and the two company icons, same as Ermal has shipped with. */
-  member('Patrich Soderstrom', 'CTO', 'patrich'),
+     not confirmed — and with no mobile supplied they list the office number.
+     Patrich is the only one who gave a personal LinkedIn; the rest point at
+     the company page until they hand one over. */
+  member('Patrich Soderstrom', 'CTO', 'patrich',
+    'https://www.linkedin.com/in/patrich-s%C3%B6derstr%C3%B6m-3ba8631b4/'),
   member('Ermal Rexhmati', 'Tech Lead', 'ermal'),
   member('Andre Bernardi', 'Member of Technical Staff', 'andre'),
   member('Armand Rexhmati', 'Member of Technical Staff', 'armand'),
@@ -188,7 +191,7 @@ const PEOPLE = [
   member('Tiago Seben', 'Member of Technical Staff', 'tiago'),
 ];
 
-function member(name, role, slug) {
+function member(name, role, slug, linkedin = LINKEDIN_COMPANY) {
   return {
     name, role, company: 'Slashdev', slug,
     phones: [PHONE_US],
@@ -196,6 +199,7 @@ function member(name, role, slug) {
     location: 'Seattle, WA &middot; Stockholm, SE',
     socials: [
       { key: 'web', href: SITE },
+      { key: 'linkedin', href: linkedin },
       { key: 'instagram', href: INSTAGRAM },
     ],
   };
