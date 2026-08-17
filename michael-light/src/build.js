@@ -119,6 +119,7 @@ const SITE = 'https://slashdev.io';
 const INSTAGRAM = 'https://www.instagram.com/slashdevhq';
 const LINKEDIN_COMPANY = 'https://www.linkedin.com/company/slashdev-io';
 const YOUTUBE = 'https://www.youtube.com/@slashdevhq';
+const X = 'https://x.com/slashdevhq';
 const PHONE_US = { href: 'tel:+19292779018', label: '+1 (929) 277-9018' };
 
 /* Instagram is the company account; the ?igsh= share tracker from the app link is
@@ -154,7 +155,7 @@ const PEOPLE = [
       { key: 'web', href: SITE },
       { key: 'linkedin', href: 'https://www.linkedin.com/in/mballard23/' },
       { key: 'instagram', href: INSTAGRAM },
-      { key: 'x', href: 'https://x.com/slashdevhq' },
+      { key: 'x', href: X },
       { key: 'youtube', href: YOUTUBE },
     ],
   },
@@ -173,6 +174,7 @@ const PEOPLE = [
       { key: 'web', href: SITE },
       { key: 'linkedin', href: 'https://www.linkedin.com/in/kevin-de-farias/' },
       { key: 'instagram', href: INSTAGRAM },
+      { key: 'x', href: X },
       { key: 'youtube', href: YOUTUBE },
     ],
   },
@@ -203,6 +205,7 @@ function member(name, role, slug, linkedin = LINKEDIN_COMPANY) {
       { key: 'web', href: SITE },
       { key: 'linkedin', href: linkedin },
       { key: 'instagram', href: INSTAGRAM },
+      { key: 'x', href: X },
       { key: 'youtube', href: YOUTUBE },
     ],
   };
